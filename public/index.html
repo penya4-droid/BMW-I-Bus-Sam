@@ -2,120 +2,49 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>I-Bus-Sam — магазин I-BUS App</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta name="description" content="I-BUS App: бортовой компьютер BMW на Android. Модуль I-BUS, лицензии, вики на русском.">
+<!-- Дизайн: шаблон Icon от FreeHTML5.co (CC BY 3.0), порт на Hugo — SteveLane (MIT), как на ibus-app.de -->
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/bootstrap.css">
+<link rel="stylesheet" href="css/icomoon.css">
+<link rel="stylesheet" href="css/style.css">
 <style>
-/* Стиль по мотивам шаблона «Icon» от FreeHTML5.co (CC BY 3.0), как у ibus-app.de:
-   полноэкранный бирюзово-синий первый экран, белое меню заглавными буквами,
-   центрированные заголовки с короткой чертой, белые карточки, светло-серые секции. */
-:root{
-  --teal:#69c2c8;
-  --teal-dark:#3da1a7;
-  --teal-ink:#368f95;
-  --blue:#1784fb;
-  --green:#58ca7e;
-  --yellow:#fed330;
-  --red:#fb4f59;
-  --orange:#fb6e14;
-  --ink:#000;
-  --text:#6b6b6b;
-  --muted:#949494;
-  --soft:#E8ECF1;
-  --line:#e6e6e6;
-  --white:#fff;
-  --screen:#14181d;
-  --font:"Open Sans",Arial,"Helvetica Neue",sans-serif;
-  --mono:Consolas,"Courier New",monospace;
-  color-scheme:light;
-}
-*{box-sizing:border-box}
-html,body{margin:0}
-body{background:var(--white);color:var(--text);font:300 17px/1.8 var(--font);-webkit-font-smoothing:antialiased}
-img,svg,canvas{max-width:100%}
-a{color:var(--teal);transition:color .3s}
-a:hover{color:var(--teal-dark)}
-button,input,select{font:inherit;color:inherit}
-:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
-h1,h2,h3{font-family:var(--font);color:var(--ink);margin:0;line-height:1.2}
-.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
-.wrap{max-width:1170px;margin:0 auto;padding:0 20px}
-.demo-bar{background:#2b2f33;color:#d6d6d6;font-size:13px;line-height:1.5;padding:7px 20px;text-align:center}
-.demo-bar b{color:var(--yellow);font-weight:600}
-
-/* ---------- первый экран ---------- */
-#hero{position:relative;min-height:560px;display:flex;align-items:center;color:#fff;
-  background:#1fc4c4;background:linear-gradient(125deg,#1fc8c4 0%,#19b0cf 45%,#1584d6 80%,#1670c9 100%);
-  box-shadow:inset -1px -11px 21px -15px rgba(0,0,0,.75);overflow:hidden}
-#hero canvas.lines{position:absolute;inset:0;width:100%;height:100%;opacity:.18;pointer-events:none}
-#hero .wrap{position:relative;width:100%;display:flex;align-items:center;gap:40px;flex-wrap:wrap;padding-top:70px;padding-bottom:70px}
-#hero .copy{flex:1 1 480px}
-#hero h1{color:#fff;font-weight:300;font-size:55px;line-height:1.2;margin-bottom:20px}
-#hero h2{color:rgba(255,255,255,.75);font-weight:400;font-size:20px;line-height:1.5;margin-bottom:34px}
-#hero h2 a{color:#fff;border-bottom:1px solid rgba(255,255,255,.4);text-decoration:none}
-#hero .cta{display:flex;gap:10px;flex-wrap:wrap}
-#hero .phone{flex:0 1 420px}
-@media (max-width:768px){#hero{min-height:0}#hero h1{font-size:36px}#hero h2{font-size:17px}}
-
-/* ---------- меню ---------- */
-header.top{position:sticky;top:0;z-index:30;background:#fff;box-shadow:0 0 7px 0 rgba(0,0,0,.09)}
-.top .wrap{display:flex;align-items:center;gap:24px;min-height:78px;flex-wrap:wrap}
-.logo{font-weight:700;font-style:italic;font-size:26px;color:var(--ink);text-decoration:none;letter-spacing:-.5px}
-.logo span{color:var(--teal)}
-.logo:hover{color:var(--ink)}
-nav.main{display:flex;gap:28px;flex-wrap:wrap}
-nav.main a{color:#b5b5b5;text-transform:uppercase;letter-spacing:2px;font-size:13px;font-weight:400;text-decoration:none;padding:6px 0;border-bottom:2px solid transparent}
-nav.main a:hover{color:#555}
-nav.main a[aria-current="page"]{color:#000;border-bottom-color:var(--orange)}
-.hdr-actions{display:flex;gap:10px;align-items:center;margin-left:auto}
-.chip-btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:#fff;border-radius:100px;padding:6px 16px;cursor:pointer;font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#555;text-decoration:none;white-space:nowrap}
-.chip-btn:hover{border-color:var(--teal);color:var(--teal-ink)}
-.chip-btn .badge{background:var(--teal);color:#fff;border-radius:100px;padding:0 7px;font-size:12px;min-width:20px;text-align:center}
-@media (max-width:900px){
-  .top .wrap{padding-top:10px;padding-bottom:10px;gap:10px}
-  nav.main{order:3;width:100%;flex-wrap:nowrap;overflow-x:auto;gap:22px}
-}
-
-/* ---------- кнопки ---------- */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:2px solid transparent;border-radius:100px;padding:14px 30px;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:.3s;line-height:1.3}
-.btn-primary{background:var(--teal);color:#fff;border-color:var(--teal)}
-.btn-primary:hover{background:#56bac1;border-color:#56bac1;color:#fff}
-.btn-amber{background:var(--green);color:#fff;border-color:var(--green)}
-.btn-amber:hover{background:#45c46f;border-color:#45c46f;color:#fff}
-.btn-ghost{background:transparent;color:var(--teal);border-color:var(--teal)}
-.btn-ghost:hover{background:var(--teal);color:#fff}
-.btn-white{background:#fff;color:var(--teal-ink);border-color:#fff}
-.btn-white:hover{background:rgba(255,255,255,.88);color:var(--teal-ink)}
-.btn-line-white{background:transparent;color:#fff;border-color:rgba(255,255,255,.7)}
-.btn-line-white:hover{background:#fff;color:var(--teal-ink)}
-.btn[disabled]{opacity:.45;cursor:not-allowed}
-.btn-sm{padding:8px 18px;font-size:11px;letter-spacing:1.5px}
-
-/* ---------- секции ---------- */
-.view{display:none}
-.view.on{display:block}
-section.block{padding:6em 0}
-section.block.gray{background:var(--soft)}
-@media (max-width:768px){section.block{padding:4em 0}}
-.heading{text-align:center;max-width:720px;margin:0 auto 50px}
-.heading h2{font-size:14px;letter-spacing:2px;font-weight:700;text-transform:uppercase;color:#4d4d4d;padding-bottom:20px;margin-bottom:20px;position:relative}
-.heading h2:after{content:"";position:absolute;width:50px;height:2px;bottom:0;left:50%;margin-left:-25px;background:#ccc}
-.heading p{font-size:18px;margin:0}
-.big-title{font-size:44px;font-style:italic;font-weight:700;color:#000;text-align:center;margin-bottom:20px;position:relative;padding-bottom:26px}
-.big-title:after{content:"";position:absolute;bottom:0;left:50%;width:40px;height:2px;margin-left:-20px;background:var(--orange)}
-@media (max-width:768px){.big-title{font-size:30px}}
-
-/* два столбца на сером фоне */
-.two-col{display:flex;flex-wrap:wrap;align-items:center;gap:50px}
-.two-col > *{flex:1 1 420px}
-.two-col h3{font-size:30px;font-weight:300;margin-bottom:18px}
-.two-col p{margin:0 0 22px}
-.checked{list-style:none;padding:0;margin:0 0 26px}
-.checked li{position:relative;padding-left:36px;margin-bottom:8px}
-.checked li:before{content:"";position:absolute;left:4px;top:.55em;width:14px;height:8px;border-left:2px solid #57D131;border-bottom:2px solid #57D131;transform:rotate(-45deg)}
-
+/* ===== Дополнения к шаблону Icon: липкое меню, кнопки магазина, без загрузчика ===== */
+:root{--teal:#69c2c8;--teal-dark:#3da1a7;--teal-ink:#368f95;--orange:#fb6e14;--soft:#E8ECF1;--line:#e6e6e6;--muted:#949494;--red:#fb4f59;--screen:#14181d;--mono:Consolas,"Courier New",monospace;--font:"Open Sans",Arial,sans-serif}
+.demo-bar{background:#2b2f33;color:#d6d6d6;font-size:13px;line-height:1.5;padding:7px 15px;text-align:center}
+.demo-bar b{color:#fed330}
+.num{font-family:var(--mono)}
+/* первый экран: фон шаблона (картинка images/hero.jpg, если загружена) */
+#fh5co-home{background-color:#19b0cf;background-image:url(images/hero.jpg),linear-gradient(125deg,#1fc8c4 0%,#19b0cf 45%,#1584d6 80%,#1670c9 100%);height:560px}
+#fh5co-home > .container,#fh5co-home .col-md-6,#fh5co-home .fh5co-copy,#fh5co-home .fh5co-copy-inner{height:100%}
+#fh5co-services .row{display:flex;flex-wrap:wrap;clear:both}
+#fh5co-services .row:before,#fh5co-services .row:after{display:none}
+/* меню */
+.js-sticky{position:-webkit-sticky;position:sticky;top:0;z-index:30;display:block!important}
+.fh5co-main-nav{box-shadow:0 0 7px 0 rgba(0,0,0,.09)}
+.fh5co-main-nav .container{display:flex;align-items:center;gap:20px}
+.fh5co-main-nav .fh5co-menu-1{float:none;width:auto;flex:1;line-height:1.3;white-space:nowrap;overflow-x:auto}
+.fh5co-main-nav .fh5co-menu-1 a{text-decoration:none}
+.fh5co-main-nav .fh5co-menu-1 a.brand{color:#000;font-weight:700;font-style:italic;font-size:22px;letter-spacing:0;text-transform:none;margin-right:34px}
+.fh5co-main-nav .fh5co-menu-1 a.brand span{color:var(--teal)}
+.hdr-actions{display:flex;gap:8px;align-items:center}
+.chip-btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:#fff;border-radius:100px;padding:6px 14px;cursor:pointer;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#555;text-decoration:none;white-space:nowrap}
+.chip-btn:hover{border-color:var(--teal);color:var(--teal-ink);text-decoration:none}
+.chip-btn .badge{background:var(--teal);color:#fff;font-weight:400}
+@media (max-width:768px){.fh5co-main-nav .container{flex-wrap:wrap;gap:0}.fh5co-main-nav .fh5co-menu-1{order:2;width:100%;flex-basis:100%}.fh5co-main-nav .fh5co-menu-1 a{padding:14px 0}.hdr-actions{margin:10px 0 0 auto}}
+/* вкладки и сетка картинок в блоке «о приложении» */
+.fh5co-tab-content p{font-size:17px}
+.fh5co-tab-content .btns{display:flex;gap:6px;flex-wrap:wrap}
+.fh5co-grid{display:flex;flex-wrap:wrap;width:100%}
+.fh5co-grid .fh5co-grid-item{position:relative;height:auto!important;aspect-ratio:1/1;overflow:hidden;background:#1c2229}
+.fh5co-2col.fh5co-text{display:flex}
+#fh5co-gallery .fh5co-item{overflow:hidden;background:#1c2229;cursor:pointer}
+.shot{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;max-width:none}
+.mock{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center}
+#fh5co-gallery .fh5co-overlay,#fh5co-gallery .fh5co-copy{z-index:3}
 /* экран приложения */
 .dash{background:var(--screen);border-radius:12px;padding:16px;box-shadow:0 20px 40px -20px rgba(0,0,0,.6);color:#fff;border:6px solid #23282e}
 .dash-head{display:flex;justify-content:space-between;font:12px/1 var(--mono);letter-spacing:2px;color:#7fa9ad;padding:2px 4px 12px}
@@ -131,52 +60,36 @@ section.block.gray{background:var(--soft)}
 .dash-foot span{font:11px/1 var(--mono);padding:6px 9px;border-radius:3px;background:#1c2229;color:#7fa9ad}
 .dash-foot span.on{background:var(--teal);color:#fff}
 
-/* функции */
-.services{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
-@media (max-width:900px){.services{grid-template-columns:1fr 1fr}}
-@media (max-width:560px){.services{grid-template-columns:1fr}}
-.service{text-align:center;padding:40px 22px 26px;background:#fff;border:1px solid transparent;border-radius:5px;transition:.4s}
-.service:hover{border-color:var(--line);box-shadow:0 0 7px 0 rgba(0,0,0,.09)}
-.service .icon{width:74px;height:74px;margin:0 auto 26px;border-radius:50%;display:flex;align-items:center;justify-content:center}
-.service .icon svg{width:36px;height:36px;fill:none;stroke:#fff;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.service h3{font-size:16px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--teal-ink);margin-bottom:12px}
-.service p{margin:0;font-size:16px}
-
-/* шаги */
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
-@media (max-width:820px){.steps{grid-template-columns:1fr}}
-.step{background:#fff;border-radius:5px;padding:34px 28px;text-align:center}
-.step .n{display:inline-flex;width:46px;height:46px;border-radius:50%;align-items:center;justify-content:center;background:var(--teal);color:#fff;font-weight:700;margin-bottom:16px}
-.step h3{font-size:16px;text-transform:uppercase;letter-spacing:1px;font-weight:600;margin-bottom:10px}
-.step p{margin:0 0 20px}
-
-/* видео-кнопка как в шаблоне */
-.video-btn{display:flex;flex-direction:column;align-items:center;gap:12px;margin:-90px auto 50px;position:relative;z-index:2;width:120px;text-decoration:none;color:var(--muted);font-size:14px}
-.video-btn i{width:90px;height:90px;border-radius:50%;background:var(--teal);box-shadow:0 0 15px 0 rgba(0,0,0,.19);display:flex;align-items:center;justify-content:center;transition:.4s}
-.video-btn i:after{content:"";border-left:26px solid #fff;border-top:16px solid transparent;border-bottom:16px solid transparent;margin-left:8px}
-.video-btn:hover i{background:#57D131;transform:scale(1.15)}
-
-/* галерея */
-.gallery{display:grid;grid-template-columns:repeat(4,1fr)}
-@media (max-width:900px){.gallery{grid-template-columns:1fr 1fr}}
-@media (max-width:480px){.gallery{grid-template-columns:1fr}}
-.g-item{position:relative;height:280px;display:flex;align-items:center;justify-content:center;overflow:hidden;cursor:pointer;background:#1c2229}
-.g-item .scr{width:78%;background:var(--screen);border-radius:8px;padding:12px;border:4px solid #2b3138;transition:transform .4s}
-.g-item .scr b{display:block;font:11px/1 var(--mono);letter-spacing:1.5px;color:#7fa9ad;margin-bottom:10px}
-.g-item .scr .row{display:flex;justify-content:space-between;font:13px/1.9 var(--mono);color:#fff;border-bottom:1px solid #222a32}
-.g-item .scr .row span:last-child{color:var(--teal)}
+.mock .scr{width:78%;background:var(--screen);border-radius:8px;padding:12px;border:4px solid #2b3138;transition:transform .4s}
+.mock .scr b{display:block;font:11px/1 var(--mono);letter-spacing:1.5px;color:#7fa9ad;margin-bottom:10px}
+.mock .srow{display:flex;justify-content:space-between;font:13px/1.9 var(--mono);color:#fff;border-bottom:1px solid #222a32}
+.mock .srow span:last-child{color:var(--teal)}
 .g-item img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;max-width:none}
-.g-item .ov{position:absolute;inset:0;background:var(--teal);opacity:0;transition:.2s;display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;font-weight:300;text-align:center;padding:20px}
-.g-item:hover .ov,.g-item:focus .ov{opacity:.94}
-.g-item:hover .scr{transform:scale(1.05)}
 
-/* баннер с призывом */
-.cta-band{background:#1784fb;background:linear-gradient(125deg,#1fc8c4,#1670c9);color:#fff;text-align:center;padding:4.5em 0}
-.cta-band h2{color:#fff;font-weight:300;font-size:36px;margin-bottom:12px}
-.cta-band p{color:rgba(255,255,255,.8);margin:0 0 26px}
-.pay-strip{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:0 0 30px}
-.pay-strip span{border:1px solid rgba(255,255,255,.5);border-radius:100px;padding:5px 16px;font-size:14px;font-weight:400}
-
+.mock .scr{width:78%;background:var(--screen);border-radius:8px;padding:12px;border:4px solid #2b3138}
+.mock .scr b{display:block;font:11px/1 var(--mono);letter-spacing:1.5px;color:#7fa9ad;margin-bottom:10px}
+.mock .srow{display:flex;justify-content:space-between;font:13px/1.9 var(--mono);color:#fff;border-bottom:1px solid #222a32}
+.mock .srow span:last-child{color:var(--teal)}
+/* иконки функций и видео-кнопка шаблона */
+#fh5co-services .service .icon i{font-size:40px;color:#57D131}
+#fh5co-services .fh5co-video a{text-decoration:none}
+#fh5co-services .fh5co-video a i{padding-left:6px}
+/* кнопки магазина в стиле шаблона */
+.btn-ghost{background:transparent;color:var(--teal);border:2px solid var(--teal)!important}
+.btn-ghost:hover,.btn-ghost:focus{background:var(--teal);color:#fff}
+.btn-amber{background:#58ca7e;color:#fff;border:none}
+.btn-amber:hover,.btn-amber:focus{background:#45c46f;color:#fff}
+.btn-sm{padding:8px 16px!important;font-size:11px!important;letter-spacing:1.5px}
+.btn.btn-primary,.btn-amber,.btn-ghost{padding:12px 26px}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+/* разделы магазина */
+.view{display:none}.view.on{display:block}
+section.block{padding:6em 0}
+section.block.gray{background:var(--soft)}
+@media (max-width:768px){section.block{padding:4em 0}}
+.fh5co-heading{margin-bottom:50px}
+.app h1,.app h2,.app h3{margin-top:0}
+.two-col{display:flex;flex-wrap:wrap;gap:50px}
 /* ---------- магазин ---------- */
 .filters{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:40px}
 .filters button{border:1px solid var(--line);background:#fff;border-radius:100px;padding:7px 18px;cursor:pointer;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;color:#888}
@@ -193,7 +106,7 @@ section.block.gray{background:var(--soft)}
 .card .cat{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:600}
 .card h3{font-size:16px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--teal-ink)}
 .card p{margin:0;font-size:15px;flex:1}
-.card .row{display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:10px}
+.card .crow{display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:10px}
 .price{font-size:26px;font-weight:300;color:#000}
 .price s{font-size:15px;color:var(--muted);margin-left:8px}
 
@@ -202,8 +115,8 @@ section.block.gray{background:var(--soft)}
 .scrim.on{display:block}
 .drawer{position:fixed;top:0;right:0;height:100%;width:440px;max-width:100%;background:#fff;z-index:41;transform:translateX(100%);transition:transform .25s ease;display:flex;flex-direction:column;visibility:hidden}
 .drawer.on{transform:none;visibility:visible;box-shadow:-4px 0 20px rgba(0,0,0,.12)}
-.drawer header,.modal header{display:flex;justify-content:space-between;align-items:center;padding:18px 22px;border-bottom:1px solid var(--line)}
-.drawer h3,.modal h3{font-size:14px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:#4d4d4d}
+.drawer header,.dlg header{display:flex;justify-content:space-between;align-items:center;padding:18px 22px;border-bottom:1px solid var(--line)}
+.drawer h3,.dlg h3{font-size:14px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:#4d4d4d}
 .x{border:0;background:transparent;font-size:28px;line-height:1;cursor:pointer;color:#aaa;padding:4px 8px}
 .x:hover{color:#000}
 .drawer .items{flex:1;overflow:auto;padding:6px 22px}
@@ -216,9 +129,9 @@ section.block.gray{background:var(--soft)}
 .sum-row{display:flex;justify-content:space-between}
 .sum-row.total{font-size:22px;color:#000;font-weight:400}
 .empty{padding:40px 0;text-align:center;color:var(--muted)}
-.modal{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:620px;max-width:calc(100% - 24px);max-height:calc(100% - 24px);overflow:auto;background:#fff;border-radius:5px;z-index:42;display:none;box-shadow:0 10px 40px rgba(0,0,0,.25)}
-.modal.on{display:block}
-.modal .content{padding:22px}
+.dlg{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:620px;max-width:calc(100% - 24px);max-height:calc(100% - 24px);overflow:auto;background:#fff;border-radius:5px;z-index:42;display:none;box-shadow:0 10px 40px rgba(0,0,0,.25)}
+.dlg.on{display:block}
+.dlg .content{padding:22px}
 .field{display:grid;gap:4px;margin-bottom:16px}
 .field label{font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#555}
 .field input,.field select{border:0;border-bottom:1px solid #d5dbe2;background:transparent;border-radius:0;padding:9px 2px;width:100%;font-weight:400;color:#222}
@@ -266,8 +179,8 @@ section.block.gray{background:var(--soft)}
 .tabs{display:flex;gap:26px;border-bottom:1px solid var(--line);margin:44px 0 0;overflow-x:auto}
 .tabs button{border:0;background:transparent;padding:12px 0;cursor:pointer;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:#b5b5b5;border-bottom:2px solid transparent;white-space:nowrap}
 .tabs button[aria-selected="true"]{color:#000;border-bottom-color:var(--orange)}
-.tab{display:none;padding-top:20px}
-.tab.on{display:block}
+.tpane{display:none;padding-top:20px}
+.tpane.on{display:block}
 .table-wrap{overflow-x:auto;background:#fff;border:1px solid var(--line);border-radius:5px}
 table{width:100%;border-collapse:collapse;font-size:15px}
 th,td{text-align:left;padding:12px 16px;border-bottom:1px solid var(--line);white-space:nowrap;font-weight:400}
@@ -322,132 +235,147 @@ footer.site small{display:block;color:#aaa;font-size:13px}
 
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:#222;color:#fff;padding:12px 22px;border-radius:100px;z-index:60;opacity:0;transition:.25s;pointer-events:none;max-width:calc(100% - 32px);font-weight:400;font-size:15px}
 .toast.on{opacity:1;transform:translateX(-50%)}
+
+.method,.toggle{font-weight:400;margin-bottom:0}
+.gototop a{text-decoration:none}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
 <body>
-
 <div class="demo-bar"><b>Демо-версия.</b> Оплаты имитируются: деньги не списываются, данные карт не запрашиваются.</div>
+<div class="fh5co-page">
+<div id="fh5co-container">
 
-<div id="hero">
-  <canvas class="lines" id="heroLines" aria-hidden="true"></canvas>
-  <div class="wrap">
-    <div class="copy">
-      <h1>I-BUS App: бортовой компьютер вашего BMW на Android</h1>
-      <h2>Приложение, модуль I-BUS и лицензии в магазине I-Bus-Sam. Оплата в рублях, доставка по России.</h2>
-      <div class="cta">
-        <a class="btn btn-white" href="#shop">Купить сейчас</a>
-        <a class="btn btn-line-white" href="https://ibus-app.de/app" rel="noopener">Скачать приложение</a>
-      </div>
-    </div>
-    <div class="phone">
-      <div class="dash" aria-label="Пример экрана приложения">
-        <div class="dash-head"><span>I-BUS APP · ПОЕЗДКА</span><span id="dClock">--:--</span></div>
-        <div class="dash-grid">
-          <div class="cell"><small>Расход</small><div class="v" id="dFuel">8.4<u>л/100</u></div></div>
-          <div class="cell"><small>Запас хода</small><div class="v" id="dRange">412<u>км</u></div></div>
-          <div class="cell"><small>Скорость</small><div class="v" id="dSpeed">64<u>км/ч</u></div></div>
-          <div class="cell"><small>Снаружи</small><div class="v" id="dTemp">+3<u>°C</u></div></div>
-          <div class="cell wide"><small>PDC · задний</small><div class="pdc" id="dPdc"></div></div>
+<div id="fh5co-home" data-section="home">
+  <div class="container">
+    <div class="col-md-6">
+      <div class="fh5co-copy">
+        <div class="fh5co-copy-inner">
+          <h1>I-BUS App</h1>
+          <h2>Бортовой компьютер вашего BMW на Android-устройстве. Модуль, лицензии и поддержка на русском в магазине <a href="#shop">I-Bus-Sam</a></h2>
         </div>
-        <div class="dash-foot"><span class="on">БК</span><span>СВЕТ</span><span>PDC</span><span>КОДИРОВАНИЕ</span><span>DSP</span></div>
       </div>
     </div>
   </div>
 </div>
 
-<header class="top">
-  <div class="wrap">
-    <a class="logo" href="#home">I-Bus-<span>Sam</span></a>
-    <nav class="main" aria-label="Разделы">
-      <a href="#home" data-route="home">Главная</a>
-      <a href="#shop" data-route="shop">Магазин</a>
-      <a href="#wallet" data-route="wallet">Кошелёк</a>
-      <a href="#faq" data-route="faq">FAQ</a>
-      <a href="#wiki" data-route="wiki">Вики</a>
-      <a href="#contacts" data-route="contacts">Контакты</a>
-    </nav>
-    <div class="hdr-actions">
-      <a class="chip-btn" href="#wallet" title="Баланс кошелька"><span class="num" id="hdrBal">0 ₽</span></a>
-      <button class="chip-btn" id="openCart" type="button">Корзина <span class="badge" id="cartCount">0</span></button>
+<div class="js-sticky">
+  <div class="fh5co-main-nav">
+    <div class="container">
+      <div class="fh5co-menu-1">
+        <a href="#home" class="brand" data-route="home">I-Bus-<span>Sam</span></a>
+        <a href="#home" data-route="home">Главная</a>
+        <a href="#faq" data-route="faq">FAQ</a>
+        <a href="#shop" data-route="shop">Магазин</a>
+        <a href="#wiki" data-route="wiki">Вики</a>
+        <a href="#wallet" data-route="wallet">Кошелёк</a>
+        <a href="#contacts" data-route="contacts">Контакты</a>
+      </div>
+      <div class="hdr-actions">
+        <a class="chip-btn" href="#wallet" title="Баланс кошелька"><span class="num" id="hdrBal">0 ₽</span></a>
+        <button class="chip-btn" id="openCart" type="button">Корзина <span class="badge" id="cartCount">0</span></button>
+      </div>
     </div>
   </div>
-</header>
+</div>
 
-<main>
-<!-- ===================== HOME ===================== -->
+<main class="app">
 <div class="view" id="view-home">
-  <section class="block gray" id="app">
-    <div class="wrap two-col">
-      <div>
-        <h3>Что такое I-BUS App и как ей пользоваться?</h3>
-        <p>I-BUS App — это приложение для Android. Оно выводит бортовой компьютер вашего автомобиля на экран Android-устройства и даёт множество функций комфорта и кодирования.</p>
-        <p>Приложение скачивается бесплатно, а к автомобилю подключается через наш модуль I-BUS. Для работы всех функций нужна лицензия I-BUS App.</p>
-        <p style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn btn-primary" href="https://ibus-app.de/app" rel="noopener">Скачать приложение</a><a class="btn btn-ghost" href="#wiki">Инструкции в вики</a></p>
-      </div>
-      <div>
-        <h3 id="modul">Как приложение связывается с автомобилем?</h3>
-        <p>Связь идёт через модуль I-BUS с USB-подключением. Модуль припаивается к жгуту проводов автомобиля в трёх точках и подключается к Android-устройству по USB.</p>
-        <p>Если не хотите паять сами, в нашем магазине есть адаптеры для модуля.</p>
-        <p><button class="btn btn-primary" type="button" data-add="m1">Заказать модуль</button></p>
+
+  <div id="fh5co-about" data-section="mission">
+    <div class="fh5co-2col">
+      <div class="fh5co-2col-inner left">
+        <div class="fh5co-tabs-container">
+          <ul class="fh5co-tabs fh5co-three">
+            <li class="active"><a href="#home" data-tab="app">I-BUS App</a></li>
+            <li><a href="#home" data-tab="modul">Модуль</a></li>
+            <li><a href="#home" data-tab="lizenz">Лицензия</a></li>
+          </ul>
+          <div class="fh5co-tab-content active" data-tab-content="app">
+            <h2>Что такое I-BUS App и как ей пользоваться?</h2>
+            <p>I-BUS App — приложение для Android. Оно выводит бортовой компьютер вашего автомобиля на экран Android-устройства и даёт множество функций комфорта и кодирования. Приложение скачивается бесплатно, а к автомобилю подключается через наш модуль I-BUS. Для работы всех функций нужна лицензия I-BUS App.</p>
+            <p class="btns"><a class="btn btn-primary" href="https://ibus-app.de/app" rel="noopener">Скачать приложение</a> <a class="btn btn-primary btn-outline" href="#wiki">Инструкции в вики</a></p>
+          </div>
+          <div class="fh5co-tab-content" data-tab-content="modul">
+            <h2>Как приложение связывается с автомобилем?</h2>
+            <p>Связь идёт через модуль I-BUS с USB-подключением. Модуль припаивается к жгуту проводов автомобиля в трёх точках и подключается к Android-устройству по USB. Если не хотите паять сами, в нашем магазине есть адаптеры для модуля.</p>
+            <p class="btns"><button class="btn btn-primary" type="button" data-add="m1">Заказать модуль</button> <button class="btn btn-primary btn-outline" type="button" data-add="ad">Адаптер без пайки</button></p>
+          </div>
+          <div class="fh5co-tab-content" data-tab-content="lizenz">
+            <h2>Как активировать лицензию приложения?</h2>
+            <p>При покупке лицензии укажите последние 7 знаков VIN вашего автомобиля: их можно найти, например, в СТС или ПТС. Приложение активируется в течение 24 часов после покупки. Для управления DSP нужна отдельная лицензия DSP.</p>
+            <p class="btns"><button class="btn btn-primary" type="button" data-add="lic">Купить лицензию</button> <button class="btn btn-primary btn-outline" type="button" data-add="dsp">Лицензия DSP</button></p>
+          </div>
+        </div>
       </div>
     </div>
-  </section>
-
-  <section class="block" id="lizenz" style="padding-bottom:0">
-    <div class="wrap" style="max-width:860px;text-align:center">
-      <div class="big-title">Лицензия</div>
-      <div class="heading"><h2>Как активировать лицензию приложения?</h2>
-        <p>При покупке лицензии укажите последние 7 знаков VIN вашего автомобиля: их можно найти, например, в СТС или ПТС. Приложение активируется в течение 24 часов после покупки. Для управления DSP нужна отдельная лицензия DSP.</p></div>
-      <p><button class="btn btn-primary" type="button" data-add="lic">Купить лицензию</button></p>
+    <div class="fh5co-2col fh5co-text">
+      <div class="fh5co-grid"><div class="fh5co-grid-item"><div class="mock"><div class="scr"><b>БОРТОВОЙ КОМПЬЮТЕР</b><div class="srow"><span>Расход</span><span>7.9 л</span></div><div class="srow"><span>Ср. скорость</span><span>48 км/ч</span></div><div class="srow"><span>В пути</span><span>1:12</span></div></div></div><img class="shot" src="images/about-1.jpg" alt="" onerror="this.remove()"></div><div class="fh5co-grid-item"><div class="mock"><div class="scr"><b>PDC</b><div class="srow"><span>Задний левый</span><span>64 см</span></div><div class="srow"><span>Задний центр</span><span>38 см</span></div><div class="srow"><span>Задний правый</span><span>71 см</span></div></div></div><img class="shot" src="images/about-2.jpg" alt="" onerror="this.remove()"></div><div class="fh5co-grid-item"><div class="mock"><div class="scr"><b>СВЕТ</b><div class="srow"><span>Поворотник</span><span>касание</span></div><div class="srow"><span>Подсветка</span><span>ВКЛ</span></div><div class="srow"><span>Задержка фар</span><span>30 с</span></div></div></div><img class="shot" src="images/about-3.jpg" alt="" onerror="this.remove()"></div><div class="fh5co-grid-item"><div class="mock"><div class="scr"><b>DSP · ЭКВАЛАЙЗЕР</b><div class="srow"><span>Низкие</span><span>+3</span></div><div class="srow"><span>Средние</span><span>0</span></div><div class="srow"><span>Высокие</span><span>+2</span></div></div></div><img class="shot" src="images/about-4.jpg" alt="" onerror="this.remove()"></div></div>
     </div>
-  </section>
-
-  <section class="block gray" id="features" style="margin-top:6em">
-    <a class="video-btn" href="https://www.youtube.com/watch?v=ZuAeD_VxaT4" rel="noopener" title="Видео о приложении"><i></i><span>Смотреть видео</span></a>
-    <div class="wrap">
-      <div class="big-title">Функции</div>
-      <div class="heading"><p>I-BUS App добавляет вашему автомобилю множество новых функций. Здесь перечислены не все.</p></div>
-      <div class="services">
-        <div class="service"><div class="icon" style="background:#69c2c8"><svg viewBox="0 0 44 44"><rect x="5" y="9" width="34" height="24" rx="3"/><path d="M12 27l6-8 5 5 8-10"/></svg></div><h3>Бортовой компьютер</h3><p>Полностью повторяет штатный бортовой компьютер и добавляет много показателей, которых в нём не было.</p></div>
-        <div class="service"><div class="icon" style="background:#fed330"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="7"/><path d="M22 5v6M22 33v6M5 22h6M33 22h6M10 10l4 4M30 30l4 4M10 34l4-4M30 14l4-4"/></svg></div><h3>Управление светом</h3><p>Не хватало мигания поворотника от касания и света поворота? Приложение даёт это и многое другое.</p></div>
-        <div class="service"><div class="icon" style="background:#1784fb"><svg viewBox="0 0 44 44"><path d="M15 14l-8 8 8 8M29 14l8 8-8 8M25 10l-6 24"/></svg></div><h3>Кодирование</h3><p>Кодируйте сами модуль освещения, PDC и DSP. Набор функций зависит от модели и года выпуска.</p></div>
-        <div class="service"><div class="icon" style="background:#58ca7e"><svg viewBox="0 0 44 44"><path d="M8 34h28M12 34V20M20 34V13M28 34V23M36 34V17"/></svg></div><h3>PDC</h3><p>Точное расстояние до препятствий и наглядная картинка штатного парктроника.</p></div>
-        <div class="service"><div class="icon" style="background:#fb4f59"><svg viewBox="0 0 44 44"><rect x="9" y="6" width="26" height="32" rx="3"/><path d="M15 14h14M15 20h14M15 26h9"/></svg></div><h3>Информация</h3><p>Данные об автомобиле: сервисные сведения, закодированные блоки, язык и VIN.</p></div>
-        <div class="service"><div class="icon" style="background:#fb6e14"><svg viewBox="0 0 44 44"><path d="M11 34V21M19 34V11M27 34V25M35 34V15"/><circle cx="11" cy="18" r="2.5"/><circle cx="19" cy="8" r="2.5"/><circle cx="27" cy="22" r="2.5"/><circle cx="35" cy="12" r="2.5"/></svg></div><h3>DSP</h3><p>Управляйте штатным цифровым звуковым процессором из приложения без потери настроек и качества звука.</p></div>
-      </div>
-      <p style="text-align:center;margin:40px 0 0"><a class="btn btn-primary" href="#shop">Купить сейчас</a></p>
-    </div>
-  </section>
-
-  <div class="gallery" id="gallery" aria-label="Экраны I-BUS App">
-    <div class="g-item" tabindex="0"><div class="scr"><b>БОРТОВОЙ КОМПЬЮТЕР</b><div class="row"><span>Расход</span><span>7.9 л</span></div><div class="row"><span>Ср. скорость</span><span>48 км/ч</span></div><div class="row"><span>В пути</span><span>1:12</span></div></div><img src="images/IBUS_BC.jpg" alt="Бортовой компьютер" loading="lazy" onerror="this.remove()"><div class="ov">Бортовой компьютер</div></div>
-    <div class="g-item" tabindex="0"><div class="scr"><b>МЕНЮ</b><div class="row"><span>Бортовой комп.</span><span>›</span></div><div class="row"><span>Свет</span><span>›</span></div><div class="row"><span>Кодирование</span><span>›</span></div></div><img src="images/IBUS_MENU.png" alt="Меню навигации" loading="lazy" onerror="this.remove()"><div class="ov">Меню навигации</div></div>
-    <div class="g-item" tabindex="0"><div class="scr"><b>PDC</b><div class="row"><span>Задний левый</span><span>64 см</span></div><div class="row"><span>Задний центр</span><span>38 см</span></div><div class="row"><span>Задний правый</span><span>71 см</span></div></div><img src="images/IBUS_PDC.png" alt="PDC" loading="lazy" onerror="this.remove()"><div class="ov">PDC</div></div>
-    <div class="g-item" tabindex="0"><div class="scr"><b>КОДИРОВАНИЕ</b><div class="row"><span>Комф. поворот</span><span>3×</span></div><div class="row"><span>Свет поворота</span><span>ВКЛ</span></div><div class="row"><span>Ангельские глазки</span><span>ВКЛ</span></div></div><img src="images/IBUS_Codierung.png" alt="Кодирование" loading="lazy" onerror="this.remove()"><div class="ov">Кодирование</div></div>
-    <div class="g-item" tabindex="0"><div class="scr"><b>ИНФОРМАЦИЯ</b><div class="row"><span>Масло через</span><span>6 200 км</span></div><div class="row"><span>Язык</span><span>Русский</span></div><div class="row"><span>VIN</span><span>…KZ81457</span></div></div><img src="images/IBUS_Informationen.jpg" alt="Информация об автомобиле" loading="lazy" onerror="this.remove()"><div class="ov">Информация об автомобиле</div></div>
-    <div class="g-item" tabindex="0"><div class="scr"><b>СВЕТ</b><div class="row"><span>Поворотник</span><span>касание</span></div><div class="row"><span>Подсветка</span><span>ВКЛ</span></div><div class="row"><span>Задержка фар</span><span>30 с</span></div></div><img src="images/IBUS_Lichtsteuerung.jpg" alt="Управление светом" loading="lazy" onerror="this.remove()"><div class="ov">Управление светом</div></div>
-    <div class="g-item" tabindex="0"><div class="scr"><b>DSP · ЭКВАЛАЙЗЕР</b><div class="row"><span>Низкие</span><span>+3</span></div><div class="row"><span>Средние</span><span>0</span></div><div class="row"><span>Высокие</span><span>+2</span></div></div><img src="images/IBUS_DSP_Equalizer.jpg" alt="DSP: эквалайзер" loading="lazy" onerror="this.remove()"><div class="ov">DSP: эквалайзер</div></div>
-    <div class="g-item" tabindex="0"><div class="scr"><b>DSP · ТЕМБР</b><div class="row"><span>Бас</span><span>+2</span></div><div class="row"><span>Тембр</span><span>+1</span></div><div class="row"><span>Баланс</span><span>Ц</span></div></div><img src="images/IBUS_DSP_Tone.jpg" alt="DSP: тембр" loading="lazy" onerror="this.remove()"><div class="ov">DSP: тембр</div></div>
   </div>
 
-  <div class="cta-band">
-    <div class="wrap">
-      <h2>Оплата и кошелёк</h2>
-      <p>Пополните баланс и оплачивайте заказы в один клик. Возвраты приходят на баланс сразу, переводы между кошельками без комиссии.</p>
-      <div class="pay-strip"><span>ЮMoney</span><span>СБП</span><span>SberPay</span><span>T-Pay</span><span>Карта «Мир»</span></div>
-      <a class="btn btn-white" href="#wallet">Открыть кошелёк</a>
-      <div class="stats" id="homeStats" style="display:none"></div>
+  <div id="fh5co-services" data-section="services">
+    <div class="fh5co-video"><a href="https://www.youtube.com/watch?v=ZuAeD_VxaT4" rel="noopener"><i class="icon-play2"></i></a> <span>Смотреть видео</span></div>
+    <div class="container">
+      <div class="col-md-6 col-md-offset-3 text-center fh5co-heading">
+        <h2>Функции</h2>
+        <p>I-BUS App добавляет вашему автомобилю множество новых функций. Здесь перечислены не все.</p>
+      </div>
+      <div class="row">
+        <div class="col-md-4 col-sm-6"><div class="service"><div class="icon"><i class="icon-dashboard"></i></div><h3>Бортовой компьютер</h3><p>Полностью повторяет штатный бортовой компьютер и добавляет много показателей, которых в нём не было.</p></div></div>
+        <div class="col-md-4 col-sm-6"><div class="service"><div class="icon"><i class="icon-lightbulb-o"></i></div><h3>Управление светом</h3><p>Не хватало мигания поворотника от касания и света поворота? Приложение даёт это и многое другое.</p></div></div>
+        <div class="col-md-4 col-sm-6"><div class="service"><div class="icon"><i class="icon-laptop"></i></div><h3>Кодирование</h3><p>Кодируйте сами модуль освещения, PDC и DSP. Набор функций зависит от модели и года выпуска.</p></div></div>
+        <div class="col-md-4 col-sm-6"><div class="service"><div class="icon"><i class="icon-signal"></i></div><h3>PDC</h3><p>Точное расстояние до препятствий и наглядная картинка штатного парктроника.</p></div></div>
+        <div class="col-md-4 col-sm-6"><div class="service"><div class="icon"><i class="icon-info-circle"></i></div><h3>Информация</h3><p>Данные об автомобиле: сервисные сведения, закодированные блоки, язык и VIN.</p></div></div>
+        <div class="col-md-4 col-sm-6"><div class="service"><div class="icon"><i class="icon-volume-up"></i></div><h3>DSP</h3><p>Управляйте штатным цифровым звуковым процессором из приложения без потери настроек и качества звука.</p></div></div>
+      </div>
+      <div class="col-md-12 text-center"><p><a href="#shop" class="btn btn-primary btn-outline btn-lg">Купить сейчас</a></p></div>
     </div>
   </div>
+
+  <div id="fh5co-gallery">
+    <div class="fh5co-item" tabindex="0"><div class="mock"><div class="scr"><b>БОРТОВОЙ КОМПЬЮТЕР</b><div class="srow"><span>Расход</span><span>7.9 л</span></div><div class="srow"><span>Ср. скорость</span><span>48 км/ч</span></div><div class="srow"><span>В пути</span><span>1:12</span></div></div></div><img class="shot" src="images/IBUS_BC.jpg" alt="Бортовой компьютер" loading="lazy" onerror="this.remove()">
+      <div class="fh5co-overlay"></div>
+      <div class="fh5co-copy"><div class="fh5co-copy-inner"><h2>Бортовой компьютер</h2><h3>I-BUS App</h3></div></div>
+    </div>
+    <div class="fh5co-item" tabindex="0"><div class="mock"><div class="scr"><b>МЕНЮ</b><div class="srow"><span>Бортовой комп.</span><span>›</span></div><div class="srow"><span>Свет</span><span>›</span></div><div class="srow"><span>Кодирование</span><span>›</span></div></div></div><img class="shot" src="images/IBUS_MENU.png" alt="Меню навигации" loading="lazy" onerror="this.remove()">
+      <div class="fh5co-overlay"></div>
+      <div class="fh5co-copy"><div class="fh5co-copy-inner"><h2>Меню навигации</h2><h3>I-BUS App</h3></div></div>
+    </div>
+    <div class="fh5co-item" tabindex="0"><div class="mock"><div class="scr"><b>PDC</b><div class="srow"><span>Задний левый</span><span>64 см</span></div><div class="srow"><span>Задний центр</span><span>38 см</span></div><div class="srow"><span>Задний правый</span><span>71 см</span></div></div></div><img class="shot" src="images/IBUS_PDC.png" alt="PDC" loading="lazy" onerror="this.remove()">
+      <div class="fh5co-overlay"></div>
+      <div class="fh5co-copy"><div class="fh5co-copy-inner"><h2>PDC</h2><h3>I-BUS App</h3></div></div>
+    </div>
+    <div class="fh5co-item" tabindex="0"><div class="mock"><div class="scr"><b>КОДИРОВАНИЕ</b><div class="srow"><span>Комф. поворот</span><span>3×</span></div><div class="srow"><span>Свет поворота</span><span>ВКЛ</span></div><div class="srow"><span>Ангельские глазки</span><span>ВКЛ</span></div></div></div><img class="shot" src="images/IBUS_Codierung.png" alt="Кодирование" loading="lazy" onerror="this.remove()">
+      <div class="fh5co-overlay"></div>
+      <div class="fh5co-copy"><div class="fh5co-copy-inner"><h2>Кодирование</h2><h3>I-BUS App</h3></div></div>
+    </div>
+    <div class="fh5co-item" tabindex="0"><div class="mock"><div class="scr"><b>ИНФОРМАЦИЯ</b><div class="srow"><span>Масло через</span><span>6 200 км</span></div><div class="srow"><span>Язык</span><span>Русский</span></div><div class="srow"><span>VIN</span><span>…KZ81457</span></div></div></div><img class="shot" src="images/IBUS_Informationen.jpg" alt="Информация об автомобиле" loading="lazy" onerror="this.remove()">
+      <div class="fh5co-overlay"></div>
+      <div class="fh5co-copy"><div class="fh5co-copy-inner"><h2>Информация об автомобиле</h2><h3>I-BUS App</h3></div></div>
+    </div>
+    <div class="fh5co-item" tabindex="0"><div class="mock"><div class="scr"><b>СВЕТ</b><div class="srow"><span>Поворотник</span><span>касание</span></div><div class="srow"><span>Подсветка</span><span>ВКЛ</span></div><div class="srow"><span>Задержка фар</span><span>30 с</span></div></div></div><img class="shot" src="images/IBUS_Lichtsteuerung.jpg" alt="Управление светом" loading="lazy" onerror="this.remove()">
+      <div class="fh5co-overlay"></div>
+      <div class="fh5co-copy"><div class="fh5co-copy-inner"><h2>Управление светом</h2><h3>I-BUS App</h3></div></div>
+    </div>
+    <div class="fh5co-item" tabindex="0"><div class="mock"><div class="scr"><b>DSP · ЭКВАЛАЙЗЕР</b><div class="srow"><span>Низкие</span><span>+3</span></div><div class="srow"><span>Средние</span><span>0</span></div><div class="srow"><span>Высокие</span><span>+2</span></div></div></div><img class="shot" src="images/IBUS_DSP_Equalizer.jpg" alt="DSP: эквалайзер" loading="lazy" onerror="this.remove()">
+      <div class="fh5co-overlay"></div>
+      <div class="fh5co-copy"><div class="fh5co-copy-inner"><h2>DSP: эквалайзер</h2><h3>I-BUS App</h3></div></div>
+    </div>
+    <div class="fh5co-item" tabindex="0"><div class="mock"><div class="scr"><b>DSP · ТЕМБР</b><div class="srow"><span>Бас</span><span>+2</span></div><div class="srow"><span>Тембр</span><span>+1</span></div><div class="srow"><span>Баланс</span><span>Ц</span></div></div></div><img class="shot" src="images/IBUS_DSP_Tone.jpg" alt="DSP: тембр" loading="lazy" onerror="this.remove()">
+      <div class="fh5co-overlay"></div>
+      <div class="fh5co-copy"><div class="fh5co-copy-inner"><h2>DSP: тембр</h2><h3>I-BUS App</h3></div></div>
+    </div>
+  </div>
+  <div style="clear:both"></div>
+  <div class="stats" id="homeStats" style="display:none"></div>
 </div>
 
 <!-- ===================== SHOP ===================== -->
 <div class="view" id="view-shop">
   <section class="block gray">
-    <div class="wrap">
-      <div class="big-title">Магазин</div>
-      <div class="heading"><p>Модули, лицензии и комплекты</p></div>
+    <div class="container">
+      <div class="fh5co-heading text-center"><div class="heading">Магазин</div><p class="sub-heading">Модули, лицензии и комплекты</p></div>
       <div class="filters" id="filters" role="group" aria-label="Категории"></div>
       <div class="grid" id="grid"></div>
     </div>
@@ -457,9 +385,8 @@ footer.site small{display:block;color:#aaa;font-size:13px}
 <!-- ===================== WALLET ===================== -->
 <div class="view" id="view-wallet">
   <section class="block gray">
-    <div class="wrap">
-      <div class="big-title">Кошелёк</div>
-      <div class="heading"><p>Баланс, оплаты, переводы и история</p></div>
+    <div class="container">
+      <div class="fh5co-heading text-center"><div class="heading">Кошелёк</div><p class="sub-heading">Баланс, оплаты, переводы и история</p></div>
       <div class="wallet-top">
         <div class="bal">
           <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><small>Доступно</small><small>Кошелёк <span id="wNum"></span></small></div>
@@ -483,9 +410,9 @@ footer.site small{display:block;color:#aaa;font-size:13px}
         <button role="tab" aria-selected="false" data-tab="orders" id="tab-orders">Заказы</button>
         <button role="tab" aria-selected="false" data-tab="keys" id="tab-keys">Лицензии</button>
       </div>
-      <div class="tab on" id="pane-ops"><div class="table-wrap"><table><thead><tr><th>Дата</th><th>Операция</th><th>Способ</th><th>Статус</th><th class="r">Сумма</th></tr></thead><tbody id="opsBody"></tbody></table></div></div>
-      <div class="tab" id="pane-orders"><div class="table-wrap"><table><thead><tr><th>Заказ</th><th>Дата</th><th>Состав</th><th>Доставка</th><th>Статус</th><th class="r">Сумма</th><th></th></tr></thead><tbody id="ordersBody"></tbody></table></div></div>
-      <div class="tab" id="pane-keys"><div class="table-wrap"><table><thead><tr><th>Лицензия</th><th>VIN (7 знаков)</th><th>Ключ</th><th>Статус</th></tr></thead><tbody id="keysBody"></tbody></table></div></div>
+      <div class="tpane on" id="pane-ops"><div class="table-wrap"><table><thead><tr><th>Дата</th><th>Операция</th><th>Способ</th><th>Статус</th><th class="r">Сумма</th></tr></thead><tbody id="opsBody"></tbody></table></div></div>
+      <div class="tpane" id="pane-orders"><div class="table-wrap"><table><thead><tr><th>Заказ</th><th>Дата</th><th>Состав</th><th>Доставка</th><th>Статус</th><th class="r">Сумма</th><th></th></tr></thead><tbody id="ordersBody"></tbody></table></div></div>
+      <div class="tpane" id="pane-keys"><div class="table-wrap"><table><thead><tr><th>Лицензия</th><th>VIN (7 знаков)</th><th>Ключ</th><th>Статус</th></tr></thead><tbody id="keysBody"></tbody></table></div></div>
       <p style="margin-top:24px"><button class="btn btn-ghost btn-sm" type="button" id="resetDemo">Сбросить демо-данные</button></p>
     </div>
   </section>
@@ -494,9 +421,8 @@ footer.site small{display:block;color:#aaa;font-size:13px}
 <!-- ===================== FAQ ===================== -->
 <div class="view" id="view-faq">
   <section class="block">
-    <div class="wrap" style="max-width:860px">
-      <div class="big-title">Вопросы</div>
-      <div class="heading"><p>Ответы на частые вопросы</p></div>
+    <div class="container" style="max-width:860px">
+      <div class="fh5co-heading text-center"><div class="heading">Вопросы</div><p class="sub-heading">Ответы на частые вопросы</p></div>
       <details open><summary>Что умеет I-BUS App?</summary><p>Полностью повторяет бортовой компьютер, управляет автономным отопителем, показывает расстояния PDC, включает подсветку Coming / Leaving home, управляет DSP и CD-чейнджером, даёт функции кодирования и комфорта. Полный список в <a href="#wiki">вики</a>.</p></details>
       <details><summary>Где найти VIN?</summary><p>VIN указан в СТС и ПТС автомобиля. Для лицензии нужны последние 7 знаков.</p></details>
       <details><summary>Какие устройства подходят?</summary><p>Android-магнитолы, планшеты и телефоны с Android 8 и новее и полноценным USB-портом. Подробные требования и список поддерживаемых автомобилей есть в нашей <a href="#wiki">вики</a>.</p></details>
@@ -512,9 +438,8 @@ footer.site small{display:block;color:#aaa;font-size:13px}
 <!-- ===================== WIKI ===================== -->
 <div class="view" id="view-wiki">
   <section class="block gray">
-    <div class="wrap">
-      <div class="big-title">Вики</div>
-      <div class="heading"><p>Всё об I-BUS App и модуле Resler: требования, установка, функции, настройки и решение проблем</p></div>
+    <div class="container">
+      <div class="fh5co-heading text-center"><div class="heading">Вики</div><p class="sub-heading">Всё об I-BUS App и модуле Resler: требования, установка, функции, настройки и решение проблем</p></div>
       <div class="wiki">
         <nav class="wiki-toc" aria-label="Разделы вики">
           <a href="#wiki" data-wiki="w-what">Что такое I-BUS App</a>
@@ -668,9 +593,8 @@ footer.site small{display:block;color:#aaa;font-size:13px}
 <!-- ===================== CONTACTS ===================== -->
 <div class="view" id="view-contacts">
   <section class="block gray">
-    <div class="wrap">
-      <div class="big-title">Контакты</div>
-      <div class="heading"><p>Ответим на вопросы по установке модуля, оплате и лицензиям I-BUS App</p></div>
+    <div class="container">
+      <div class="fh5co-heading text-center"><div class="heading">Контакты</div><p class="sub-heading">Ответим на вопросы по установке модуля, оплате и лицензиям I-BUS App</p></div>
       <div class="contact-grid">
         <div class="panel-card"><h3>Поддержка</h3><p>Ежедневно с 9:00 до 21:00 по Москве</p><p class="num" style="color:#000">info@bmw-ibus.ru</p></div>
         <div class="panel-card"><h3>Telegram</h3><p>Ответим быстрее, чем на почту</p><p class="num" style="color:#000">@ibus_sam</p></div>
@@ -687,12 +611,26 @@ footer.site small{display:block;color:#aaa;font-size:13px}
 </div>
 </main>
 
-<footer class="site">
-  <div class="wrap">
-    <div>© 2026 I-Bus-Sam. Партнёр I-BUS App в России.<small>I-BUS App — продукт ibus-app.de. Дизайн по мотивам шаблона Icon от FreeHTML5.co (CC BY 3.0)</small></div>
-    <nav><a href="#shop">Магазин</a><a href="#faq">FAQ</a><a href="#wiki">Вики</a><a href="https://www.youtube.com/channel/UCOWcoADEldNRix52krk4XWg" rel="noopener">YouTube</a><a href="#contacts">Контакты</a><a href="https://ibus-app.de/app" rel="noopener">Скачать приложение</a></nav>
+<div id="fh5co-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <p>© 2026 I-Bus-Sam. Партнёр I-BUS App в России.<br><small>I-BUS App — продукт ibus-app.de. Дизайн: шаблон Icon от <a href="https://freehtml5.co/" rel="noopener">FreeHTML5.co</a>, порт на Hugo — SteveLane.</small></p>
+        <p><a href="#home">Главная</a> · <a href="#faq">FAQ</a> · <a href="#wiki">Вики</a> · <a href="#shop">Магазин</a> · <a href="#contacts">Контакты</a> · <a href="https://ibus-app.de/app" rel="noopener">Скачать приложение</a></p>
+      </div>
+      <div class="col-md-6">
+        <ul class="fh5co-social">
+          <li><a href="https://www.youtube.com/channel/UCOWcoADEldNRix52krk4XWg" rel="noopener" title="YouTube"><i class="icon-youtube"></i></a></li>
+        </ul>
+      </div>
+    </div>
   </div>
-</footer>
+</div>
+
+</div>
+</div>
+
+<div class="gototop js-top"><a href="#home" class="js-gotop" aria-label="Наверх"><i class="icon-arrow-up"></i></a></div>
 
 <!-- cart drawer -->
 <div class="scrim" id="scrim"></div>
@@ -703,7 +641,7 @@ footer.site small{display:block;color:#aaa;font-size:13px}
 </aside>
 
 <!-- generic modal -->
-<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+<div class="dlg" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
   <header><h3 id="modalTitle"></h3><button class="x" type="button" data-close aria-label="Закрыть">×</button></header>
   <div class="content" id="modalBody"></div>
 </div>
@@ -795,7 +733,8 @@ function route(){
   document.querySelectorAll(".view").forEach(v=>v.classList.toggle("on", v.id==="view-"+r));
   document.querySelectorAll("nav.main a").forEach(a=>{ if(a.dataset.route===r) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
   closeAll();
-  const h=document.getElementById("hero"); if(h) h.style.display = r==="home" ? "" : "none";
+  const h=document.getElementById("fh5co-home"); if(h) h.style.display = r==="home" ? "" : "none";
+  document.querySelectorAll(".fh5co-menu-1 a").forEach(a=>a.classList.toggle("active", a.dataset.route===r && !a.classList.contains("brand")));
   window.scrollTo({top:0});
 }
 window.addEventListener("hashchange", route);
@@ -814,7 +753,7 @@ function renderGrid(){
         <div class="cat">${CATEGORIES.find(c=>c.id===p.cat).name}${p.digital?" · цифровой":""}</div>
         <h3>${esc(p.name)}</h3>
         <p>${esc(p.desc)}</p>
-        <div class="row"><span class="price">${rub(p.price)}${p.old?`<s>${rub(p.old)}</s>`:""}</span>
+        <div class="crow"><span class="price">${rub(p.price)}${p.old?`<s>${rub(p.old)}</s>`:""}</span>
         <button class="btn btn-primary btn-sm" type="button" data-add="${p.id}">В корзину</button></div>
       </div>
     </article>`).join("");
@@ -1080,7 +1019,7 @@ document.addEventListener("click", e=>{
   const rf = t.closest("[data-refund]"); if(rf){ refund(rf.dataset.refund); return; }
   const tab = t.closest("[data-tab]"); if(tab){
     document.querySelectorAll("[data-tab]").forEach(b=>b.setAttribute("aria-selected", b===tab));
-    document.querySelectorAll(".tab").forEach(p=>p.classList.toggle("on", p.id==="pane-"+tab.dataset.tab)); return;
+    document.querySelectorAll(".tpane").forEach(p=>p.classList.toggle("on", p.id==="pane-"+tab.dataset.tab)); return;
   }
   if(t.closest("#resetDemo")){ S = fresh(); save(); renderAll(); toast("Демо-данные сброшены"); }
 });
@@ -1096,19 +1035,7 @@ document.querySelectorAll("[data-wiki]").forEach(a=>a.addEventListener("click", 
 $("#contactForm").addEventListener("submit", e=>{ e.preventDefault(); e.target.reset(); toast("В демо сообщение не отправляется. Подключите форму к своему серверу."); });
 
 /* ======================= ДИСПЛЕЙ В ШАПКЕ ======================= */
-const pdc = $("#dPdc"); pdc.innerHTML = Array.from({length:8},()=>"<span></span>").join("");
-let tick = 0;
-function dash(){
-  tick++;
-  const now = new Date(); $("#dClock").textContent = now.toLocaleTimeString("ru-RU",{hour:"2-digit",minute:"2-digit"});
-  const sp = Math.round(60 + 18*Math.sin(tick/3));
-  $("#dSpeed").innerHTML = sp + "<u>км/ч</u>";
-  $("#dFuel").innerHTML = (7.6 + 1.4*Math.abs(Math.sin(tick/5))).toFixed(1) + "<u>л/100</u>";
-  $("#dRange").innerHTML = (412 - Math.floor(tick/4)%60) + "<u>км</u>";
-  [...pdc.children].forEach((s,i)=>{ const h = 20 + 80*Math.abs(Math.sin(tick/4 + i*.7)); s.style.height = h+"%"; s.style.background = h>75 ? "#fb4f59" : h>45 ? "#fed330" : "#58ca7e"; });
-}
-dash();
-if(!matchMedia("(prefers-reduced-motion: reduce)").matches) setInterval(dash, 1500);
+
 
 function heroLines(){
   const c=document.getElementById("heroLines"); if(!c) return;
@@ -1118,7 +1045,17 @@ function heroLines(){
     for(let k=0;k<5;k++){ if(rnd()>.5) px+= (rnd()-.3)*w*.3; else py+=(rnd()-.5)*h*.4; x.lineTo(px,py); }
     x.stroke(); x.beginPath(); x.arc(px,py,3,0,7); x.fillStyle="#fff"; x.fill(); }
 }
-heroLines(); window.addEventListener("resize", heroLines);
+
+document.querySelectorAll(".fh5co-tabs a").forEach(a=>a.addEventListener("click", e=>{
+  e.preventDefault(); const box=a.closest(".fh5co-tabs-container");
+  box.querySelectorAll(".fh5co-tabs li").forEach(li=>li.classList.toggle("active", li===a.parentNode));
+  box.querySelectorAll(".fh5co-tab-content").forEach(c=>c.classList.toggle("active", c.dataset.tabContent===a.dataset.tab));
+}));
+const goTop=document.querySelector(".js-top");
+window.addEventListener("scroll", ()=>goTop.classList.toggle("active", window.scrollY>200));
+document.querySelector(".js-gotop").addEventListener("click", e=>{ e.preventDefault(); window.scrollTo({top:0, behavior:"smooth"}); });
+function heroHeight(){ const h=document.getElementById("fh5co-home"); const nav=document.querySelector(".fh5co-main-nav"); h.style.height = Math.max(420, window.innerHeight - nav.offsetHeight - 34) + "px"; }
+heroHeight(); window.addEventListener("resize", heroHeight);
 load(); renderAll(); route();
 </script>
 </body>
