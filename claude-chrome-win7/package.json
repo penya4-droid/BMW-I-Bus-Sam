@@ -4,7 +4,9 @@
   "private": true,
   "description": "Расширение Chrome: чат с Claude, совместимо с Chrome 109 (Windows 7)",
   "scripts": {
-    "build": "esbuild src/api.js --bundle --format=iife --global-name=ClaudeApi --target=chrome109 --minify --outfile=extension/vendor/claude-api.js"
+    "build": "npm run build:ext && npm run build:android",
+    "build:ext": "esbuild src/api.js --bundle --format=iife --global-name=ClaudeApi --target=chrome109 --minify --outfile=extension/vendor/claude-api.js",
+    "build:android": "esbuild src/api.js --bundle --format=iife --global-name=ClaudeApi --target=chrome109 --minify --outfile=../claude-android/app/vendor/claude-api.js"
   },
   "devDependencies": {
     "@anthropic-ai/sdk": "^1.10.0",

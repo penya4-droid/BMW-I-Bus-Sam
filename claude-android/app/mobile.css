@@ -1,0 +1,59 @@
+/* Мобильная раскладка поверх style.css (общего с расширением). */
+html, body { overscroll-behavior-y: none; }
+body.mode-mobile { -webkit-tap-highlight-color: transparent; }
+.mode-mobile .app { height: 100vh; height: 100dvh; }
+.mode-mobile .topbar {
+  padding: calc(6px + env(safe-area-inset-top)) 8px 6px;
+  background: var(--bg);
+}
+.mode-mobile .model-select { max-width: 132px; }
+
+/* Список чатов — выезжающая панель */
+.mode-mobile .sidebar {
+  position: fixed; z-index: 30; top: 0; bottom: 0; left: 0;
+  width: min(300px, 84vw);
+  padding-top: calc(12px + env(safe-area-inset-top));
+  padding-bottom: calc(12px + env(safe-area-inset-bottom));
+  transform: translateX(-100%);
+  transition: transform .2s ease;
+  box-shadow: 4px 0 18px rgba(0, 0, 0, .2);
+}
+.mode-mobile .sidebar.open { transform: none; }
+.scrim { position: fixed; inset: 0; z-index: 20; background: rgba(0, 0, 0, .35); }
+.mode-mobile .chat-item { padding: 11px 10px; }
+.mode-mobile .chat-item-del { visibility: visible; font-size: 20px; padding: 0 4px; }
+
+/* Сообщения */
+.mode-mobile .messages > * { padding: 0 12px; }
+.mode-mobile .empty { padding-top: 8vh; }
+.mode-mobile .msg.user .bubble { max-width: 88%; }
+.install-cta { margin-top: 18px; }
+
+/* Ввод: 16px, чтобы Chrome не увеличивал страницу при фокусе */
+.mode-mobile .composer { padding: 0 8px calc(8px + env(safe-area-inset-bottom)); }
+.mode-mobile .composer textarea { font-size: 16px; }
+.send-btn {
+  width: 40px; height: 40px; padding: 0; border-radius: 50%;
+  font-size: 16px; flex: 0 0 auto;
+}
+.mode-mobile .icon-btn { width: 40px; height: 40px; font-size: 18px; }
+.mode-mobile .notice { margin: 0 8px 6px; flex-wrap: wrap; }
+
+/* Экран настроек */
+.sheet {
+  position: fixed; inset: 0; z-index: 40;
+  background: var(--bg);
+  display: flex; flex-direction: column;
+}
+.sheet-body {
+  flex: 1; overflow-y: auto;
+  padding: 12px 12px calc(24px + env(safe-area-inset-bottom));
+}
+.sheet .card { padding: 14px; }
+.sheet .field input[type=password], .sheet .field input[type=text],
+.sheet .field select, .sheet .field textarea { font-size: 16px; }
+.sheet .row .btn { flex: 1 1 auto; text-align: center; text-decoration: none; }
+.sheet a.btn { display: inline-block; color: inherit; }
+.sheet a.btn-primary { color: #fff; }
+.install-steps { padding-left: 20px; margin: 8px 0 0; }
+.install-steps li { margin: 4px 0; }

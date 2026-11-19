@@ -74,7 +74,7 @@ function contentForHistory(content) {
 function describeError(err) {
   if (err instanceof Anthropic.APIUserAbortError) return null;
   if (err instanceof Anthropic.AuthenticationError)
-    return "Неверный API-ключ. Проверьте его в настройках расширения.";
+    return "Неверный API-ключ. Проверьте его в настройках.";
   if (err instanceof Anthropic.PermissionDeniedError)
     return "Нет доступа к этой модели для вашего ключа.";
   if (err instanceof Anthropic.NotFoundError)

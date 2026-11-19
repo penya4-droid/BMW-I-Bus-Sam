@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+  <title>Claude</title>
+  <meta name="description" content="Claude на Android: чат по API-ключу и быстрый переход к бесплатному Claude.">
+  <meta name="theme-color" content="#c96442">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="mobile.css">
+</head>
+<body class="mode-mobile">
+  <div class="app">
+    <div class="scrim" id="scrim" hidden></div>
+    <aside class="sidebar" id="sidebar">
+      <button class="btn btn-primary full" id="newChat">+ Новый чат</button>
+      <div class="chat-list" id="chatList"></div>
+      <div class="sidebar-foot">
+        <button class="btn btn-ghost full" id="openOptions">⚙ Настройки и установка</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button class="icon-btn" id="toggleSidebar" title="Список чатов" aria-label="Список чатов">☰</button>
+        <div class="title" id="chatTitle">Claude</div>
+        <select id="modelSelect" class="model-select" title="Модель" aria-label="Модель"></select>
+        <button class="icon-btn" id="settingsBtn" title="Настройки" aria-label="Настройки">⚙</button>
+      </header>
+
+      <section class="messages" id="messages">
+        <div class="empty" id="empty">
+          <div class="logo">✳</div>
+          <h1>Чем помочь?</h1>
+          <p>Задайте вопрос или прикрепите фото 📎.</p>
+          <p class="hint">Из любого приложения: «Поделиться» → Claude — текст сразу попадёт сюда.</p>
+          <button class="btn btn-primary install-cta" id="installCta" hidden>⬇ Установить приложение</button>
+        </div>
+      </section>
+
+      <div class="notice" id="notice" hidden></div>
+
+      <footer class="composer">
+        <div class="attachments" id="attachments"></div>
+        <div class="composer-row">
+          <label class="icon-btn" title="Прикрепить изображение" aria-label="Прикрепить изображение">
+            📎<input type="file" id="fileInput" accept="image/png,image/jpeg,image/gif,image/webp" multiple hidden>
+          </label>
+          <textarea id="input" rows="1" placeholder="Сообщение для Claude…" enterkeyhint="send"></textarea>
+          <button class="btn btn-primary send-btn" id="sendBtn" aria-label="Отправить">➤</button>
+          <button class="btn btn-stop send-btn" id="stopBtn" aria-label="Стоп" hidden>■</button>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <!-- Экран настроек -->
+  <div class="sheet" id="sheet" hidden>
+    <header class="topbar">
+      <button class="icon-btn" id="sheetClose" aria-label="Назад">←</button>
+      <div class="title">Настройки</div>
+    </header>
+    <div class="sheet-body options">
+
+      <div class="card" id="installCard">
+        <div class="field">
+          <label>Установка на телефон</label>
+          <div id="installState" class="help"></div>
+          <div class="row" style="margin-top:10px">
+            <button class="btn btn-primary" id="installBtn" type="button" hidden>⬇ Установить приложение</button>
+          </div>
+          <ol class="install-steps" id="installSteps">
+            <li>Нажмите меню Chrome <b>⋮</b> (справа вверху).</li>
+            <li>Выберите <b>«Установить приложение»</b> или <b>«Добавить на главный экран»</b>.</li>
+            <li>Подтвердите — значок Claude появится на главном экране.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="card" id="freeCard">
+        <div class="field">
+          <label>Бесплатно <span class="badge">0 ₽</span></label>
+          <div class="help">
+            Официальный Claude на бесплатном тарифе: нужен аккаунт (e-mail или Google), есть дневной лимит сообщений.
+            Работает только в странах, где доступен Claude.
+          </div>
+          <div class="row" style="margin-top:10px">
+            <a class="btn btn-primary" id="freePlay" target="_blank" rel="noopener">Приложение Claude в Google Play</a>
+            <a class="btn" id="freeWeb" target="_blank" rel="noopener">Открыть claude.ai</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="field">
+          <label for="apiKey">API-ключ Anthropic <span class="badge paid">платно</span></label>
+          <div class="row">
+            <input type="password" id="apiKey" placeholder="sk-ant-..." autocomplete="off" spellcheck="false" autocapitalize="off">
+          </div>
+          <div class="row" style="margin-top:8px">
+            <button class="btn" id="toggleKey" type="button">Показать</button>
+            <button class="btn" id="testKey" type="button">Проверить ключ</button>
+          </div>
+          <div class="help">Нужен для встроенного чата. Хранится только на этом телефоне и отправляется только на api.anthropic.com.
+            Ключ: <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">console.anthropic.com</a>, оплата по факту.</div>
+          <div class="status" id="keyStatus"></div>
+        </div>
+        <div class="field">
+          <label for="model">Модель</label>
+          <select id="model"></select>
+        </div>
+        <div class="field">
+          <label for="effort">Глубина размышлений</label>
+          <select id="effort"></select>
+          <div class="help">Чем выше, тем лучше ответы на сложные вопросы, но дольше и дороже.</div>
+        </div>
+        <div class="field">
+          <label for="system">Системная инструкция</label>
+          <textarea id="system"></textarea>
+        </div>
+        <div class="field">
+          <label class="check"><input type="checkbox" id="showThinking"> Показывать ход размышлений</label>
+        </div>
+        <div class="row">
+          <button class="btn btn-primary" id="save" type="button">Сохранить</button>
+          <span class="status" id="saveStatus"></span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="field">
+          <label>Проверка</label>
+          <div class="help">Браузер, установка, хранилище, связь с серверами и API-ключ. Токены не расходуются.</div>
+          <div class="row" style="margin-top:10px">
+            <button class="btn" id="runChecks" type="button">Запустить проверку</button>
+          </div>
+          <ul class="checks" id="checks"></ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="field">
+          <label>Данные</label>
+          <div class="row">
+            <button class="btn" id="exportChats" type="button">Экспорт чатов</button>
+            <button class="btn" id="clearChats" type="button">Удалить все чаты</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="vendor/claude-api.js"></script>
+  <script src="storage.js"></script>
+  <script src="markdown.js"></script>
+  <script src="settings.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
