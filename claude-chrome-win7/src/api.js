@@ -92,16 +92,14 @@ function describeError(err) {
   return "Ошибка: " + (err && err.message ? err.message : String(err));
 }
 
-/** Короткий запрос для проверки ключа на странице настроек. */
+/**
+ * Проверка ключа без расхода токенов: запрашиваем сведения о модели.
+ * Возвращает отображаемое имя модели.
+ */
 async function testKey(apiKey, model) {
   const client = makeClient(apiKey);
-  const res = await client.messages.create({
-    model,
-    max_tokens: 256,
-    output_config: { effort: "low" },
-    messages: [{ role: "user", content: "Ответь одним словом: работает?" }],
-  });
-  return res.content.filter((b) => b.type === "text").map((b) => b.text).join("");
+  const info = await client.models.retrieve(model);
+  return info.display_name || info.id;
 }
 
 export { streamChat, contentForHistory, describeError, testKey };

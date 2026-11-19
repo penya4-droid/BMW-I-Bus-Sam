@@ -259,11 +259,20 @@
     span.textContent = text;
     el.notice.appendChild(span);
     if (/ключ/i.test(text)) {
+      var btns = document.createElement("span");
+      btns.className = "notice-actions";
+      var f = document.createElement("button");
+      f.className = "btn btn-primary btn-small";
+      f.textContent = "Бесплатный Claude";
+      f.title = "Открыть claude.ai — бесплатный тариф, нужен аккаунт";
+      f.addEventListener("click", function () { openFreeClaude(); if (MODE === "popup") window.close(); });
       var b = document.createElement("button");
       b.className = "link-btn";
-      b.textContent = "Открыть настройки";
+      b.textContent = "Настройки";
       b.addEventListener("click", function () { chrome.runtime.openOptionsPage(); });
-      el.notice.appendChild(b);
+      btns.appendChild(f);
+      btns.appendChild(b);
+      el.notice.appendChild(btns);
     }
   }
 
@@ -386,7 +395,7 @@
     var text = textOverride != null ? textOverride : el.input.value.trim();
     if (!text && !pending.length) return;
     if (!settings.apiKey) {
-      showNotice("Сначала укажите API-ключ Anthropic в настройках.");
+      showNotice("Для встроенного чата нужен платный API-ключ. Бесплатно — через claude.ai.");
       return;
     }
     showNotice("");
@@ -592,13 +601,13 @@
         renderPending();
       }
       if (settings.apiKey) send(pp.text);
-      else { el.input.value = pp.text; autoGrow(); showNotice("Сначала укажите API-ключ Anthropic в настройках."); }
+      else { el.input.value = pp.text; autoGrow(); showNotice("Для встроенного чата нужен платный API-ключ. Бесплатно — через claude.ai."); }
     } else if (it.lastChatId && index.some(function (c) { return c.id === it.lastChatId; })) {
       await openChat(it.lastChatId);
     } else {
       startNewChat();
     }
-    if (!settings.apiKey) showNotice("Сначала укажите API-ключ Anthropic в настройках.");
+    if (!settings.apiKey) showNotice("Для встроенного чата нужен платный API-ключ. Бесплатно — через claude.ai.");
     if (MODE === "tab") el.sidebar.classList.add("open");
     el.input.focus();
   }

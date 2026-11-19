@@ -12,37 +12,75 @@
 
     <div class="card">
       <div class="field">
-        <label for="apiKey">API-ключ Anthropic</label>
-        <div class="row">
-          <input type="password" id="apiKey" placeholder="sk-ant-..." autocomplete="off" spellcheck="false">
-          <button class="btn" id="toggleKey" type="button">Показать</button>
-          <button class="btn" id="testKey" type="button">Проверить</button>
+        <label>Режим работы</label>
+        <div class="modes">
+          <label class="mode-card" id="modeFreeCard">
+            <div class="mode-title"><input type="radio" name="mode" value="free" id="modeFree">Бесплатно — claude.ai<span class="badge">0 ₽</span></div>
+            <div class="mode-desc">
+              Значок расширения открывает официальный сайт claude.ai в отдельном окне.
+              Бесплатный тариф Claude: нужен только аккаунт claude.ai, есть дневной лимит сообщений.
+            </div>
+          </label>
+          <label class="mode-card" id="modeApiCard">
+            <div class="mode-title"><input type="radio" name="mode" value="api" id="modeApi">По API-ключу<span class="badge paid">платно</span></div>
+            <div class="mode-desc">
+              Встроенный чат расширения. Нужен ключ Anthropic API, каждый запрос оплачивается по тарифам Anthropic.
+            </div>
+          </label>
         </div>
-        <div class="help">
-          Ключ хранится только в этом браузере и отправляется только на api.anthropic.com.
+        <div class="row" style="margin-top:12px">
+          <button class="btn btn-primary" id="openFree" type="button">Открыть бесплатный Claude</button>
+          <span class="help">Можно в любом режиме: правый клик по значку → «Открыть бесплатный Claude».</span>
         </div>
-        <div class="status" id="keyStatus"></div>
       </div>
     </div>
 
     <div class="card">
       <div class="field">
-        <label for="model">Модель</label>
-        <select id="model"></select>
-        <div class="help">Opus 5.5 — самая умная по умолчанию; Sonnet 5.5 — быстрее и дешевле; Haiku 5.5 — самая быстрая и дешёвая.</div>
+        <label>Проверка</label>
+        <div class="help">Проверяет браузер, связь с claude.ai и api.anthropic.com и API-ключ (если указан). Токены не расходуются.</div>
+        <div class="row" style="margin-top:10px">
+          <button class="btn" id="runChecks" type="button">Запустить проверку</button>
+        </div>
+        <ul class="checks" id="checks"></ul>
       </div>
-      <div class="field">
-        <label for="effort">Глубина размышлений</label>
-        <select id="effort"></select>
-        <div class="help">Чем выше, тем лучше ответы на сложные вопросы, но дольше и дороже.</div>
+    </div>
+
+    <div id="apiSection">
+      <div class="card">
+        <div class="field">
+          <label for="apiKey">API-ключ Anthropic <span class="badge paid">платно</span></label>
+          <div class="row">
+            <input type="password" id="apiKey" placeholder="sk-ant-..." autocomplete="off" spellcheck="false">
+            <button class="btn" id="toggleKey" type="button">Показать</button>
+            <button class="btn" id="testKey" type="button">Проверить ключ</button>
+          </div>
+          <div class="help">
+            Нужен только для режима «По API-ключу». Ключ хранится только в этом браузере и отправляется только на api.anthropic.com.
+          </div>
+          <div class="status" id="keyStatus"></div>
+        </div>
       </div>
-      <div class="field">
-        <label for="system">Системная инструкция</label>
-        <textarea id="system"></textarea>
-        <div class="help">Общие указания для Claude во всех чатах (тон, язык, роль).</div>
-      </div>
-      <div class="field">
-        <label class="check"><input type="checkbox" id="showThinking"> Показывать ход размышлений</label>
+
+      <div class="card">
+        <div class="field">
+          <label for="model">Модель</label>
+          <select id="model"></select>
+          <div class="help">Opus 5.5 — самая умная (по умолчанию); Sonnet 5.5 — быстрее и дешевле; Haiku 5.5 — самая быстрая и дешёвая.</div>
+        </div>
+        <div class="field">
+          <label for="effort">Глубина размышлений</label>
+          <select id="effort"></select>
+          <div class="help">Чем выше, тем лучше ответы на сложные вопросы, но дольше и дороже.</div>
+        </div>
+        <div class="field">
+          <label for="system">Системная инструкция</label>
+          <textarea id="system"></textarea>
+          <div class="help">Общие указания для Claude во всех чатах (тон, язык, роль).</div>
+        </div>
+        <div class="field">
+          <label class="check"><input type="checkbox" id="showThinking"> Показывать ход размышлений</label>
+        </div>
       </div>
     </div>
 
@@ -53,15 +91,23 @@
 
     <div class="card" style="margin-top:20px">
       <div class="field">
-        <label>Как получить ключ</label>
+        <label>Как начать бесплатно</label>
         <ol>
-          <li>Зайдите на <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">console.anthropic.com</a> и войдите в аккаунт.</li>
-          <li>Пополните баланс в разделе Billing (оплата идёт за фактическое использование).</li>
-          <li>Создайте ключ в разделе API Keys и вставьте его сюда.</li>
+          <li>Выберите режим «Бесплатно — claude.ai» и нажмите «Сохранить».</li>
+          <li>Нажмите значок расширения (или Alt+Shift+C) — откроется окно claude.ai.</li>
+          <li>Войдите или зарегистрируйтесь (по e-mail или Google). Бесплатный тариф включается сам.</li>
         </ol>
       </div>
       <div class="field">
-        <label>Данные</label>
+        <label>Как получить API-ключ (платно)</label>
+        <ol>
+          <li>Зайдите на <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">console.anthropic.com</a>.</li>
+          <li>Пополните баланс в разделе Billing (оплата за фактическое использование).</li>
+          <li>Создайте ключ в разделе API Keys и вставьте его выше.</li>
+        </ol>
+      </div>
+      <div class="field">
+        <label>Данные встроенного чата</label>
         <div class="row">
           <button class="btn" id="exportChats" type="button">Экспорт чатов (JSON)</button>
           <button class="btn" id="clearChats" type="button">Удалить все чаты</button>

@@ -211,6 +211,8 @@ button, select, input, textarea { font: inherit; color: inherit; }
   display: flex; gap: 10px; align-items: center; justify-content: space-between;
 }
 .notice.error { background: var(--err-bg); }
+.notice-actions { display: flex; gap: 10px; align-items: center; flex: 0 0 auto; }
+.btn-small { padding: 4px 10px; font-size: 12px; }
 .notice.warn { background: var(--warn-bg); }
 
 .composer { padding: 0 12px 12px; }
@@ -262,3 +264,31 @@ button, select, input, textarea { font: inherit; color: inherit; }
 .status.bad { color: var(--danger); }
 .options ol { padding-left: 20px; margin: 6px 0 0; }
 .options a { color: var(--accent); }
+
+.modes { display: flex; gap: 12px; flex-wrap: wrap; }
+.mode-card {
+  flex: 1 1 240px; display: block; cursor: pointer;
+  border: 2px solid var(--border); border-radius: 10px; padding: 12px 14px;
+}
+.mode-card:hover { border-color: var(--muted); }
+.mode-card.selected { border-color: var(--accent); }
+.mode-card input { margin: 0 6px 0 0; }
+.mode-card .mode-title { font-weight: 600; }
+.mode-card .mode-desc { font-size: 12px; color: var(--muted); margin-top: 6px; font-weight: normal; }
+.badge {
+  display: inline-block; font-size: 11px; font-weight: 600; border-radius: 4px;
+  padding: 1px 6px; margin-left: 6px; vertical-align: 1px;
+  background: #e5f3e6; color: #2e7d32;
+}
+.badge.paid { background: var(--warn-bg); color: #9a5b00; }
+.checks { list-style: none; padding: 0; margin: 12px 0 0; }
+.checks li { display: flex; gap: 10px; padding: 7px 0; border-top: 1px solid var(--border); }
+.checks li:first-child { border-top: none; }
+.checks .ic { flex: 0 0 20px; text-align: center; font-weight: 700; }
+.checks .ok .ic { color: #2e7d32; }
+.checks .bad .ic { color: var(--danger); }
+.checks .warn .ic { color: #b26a00; }
+.checks .wait .ic { color: var(--muted); }
+.checks .name { font-weight: 600; }
+.checks .detail { font-size: 12px; color: var(--muted); }
+#apiSection.disabled { opacity: .55; }

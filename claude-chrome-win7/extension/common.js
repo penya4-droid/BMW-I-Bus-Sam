@@ -16,6 +16,7 @@ var EFFORTS = [
 ];
 
 var DEFAULT_SETTINGS = {
+  mode: "free",          // "free" — claude.ai (бесплатный тариф), "api" — чат по API-ключу
   apiKey: "",
   model: "claude-opus-5-5",
   effort: "medium",
@@ -50,4 +51,9 @@ async function loadSettings() {
 
 function saveSettings(s) {
   return storageSet({ settings: s });
+}
+
+// Открыть бесплатный Claude (официальный сайт claude.ai) в отдельном окне.
+function openFreeClaude() {
+  chrome.windows.create({ url: "https://claude.ai/new", type: "popup", width: 520, height: 760, focused: true });
 }
