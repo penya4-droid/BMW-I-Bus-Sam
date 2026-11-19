@@ -1,4 +1,4 @@
-// Бортовик: сервер кошелька и приёма платежей через ЮKassa.
+// I-Bus-Sam: сервер кошелька и приёма платежей через ЮKassa.
 // Без внешних зависимостей: Node.js 22+ (встроенные http, fetch и node:sqlite).
 // Запуск: YK_SHOP_ID=... YK_SECRET_KEY=... RETURN_URL=https://ваш-сайт/#wallet node server.js
 //
@@ -13,7 +13,7 @@ const { DatabaseSync } = require("node:sqlite");
 
 const CFG = {
   port: Number(process.env.PORT || 8080),
-  db: process.env.DB_PATH || "bortovik.db",
+  db: process.env.DB_PATH || "ibus-sam.db",
   ykApi: process.env.YK_API || "https://api.yookassa.ru/v3",
   shopId: process.env.YK_SHOP_ID || "",
   secretKey: process.env.YK_SECRET_KEY || "",
@@ -26,14 +26,11 @@ const CFG = {
 
 // Каталог на сервере: цены берутся только отсюда, никогда из запроса клиента.
 const PRODUCTS = {
-  lic:  { name: "Лицензия «Бортовик»", price: 249000, subject: "service",   needVin: true },
-  dsp:  { name: "Лицензия DSP",        price: 149000, subject: "service",   needVin: true },
-  m1:   { name: "Модуль М1 (USB)",     price: 690000, subject: "commodity" },
-  ad:   { name: "Адаптер «без пайки»", price: 190000, subject: "commodity" },
-  usb:  { name: "Кабель USB-C, 1,5 м", price:  59000, subject: "commodity" },
-  case: { name: "Держатель модуля",    price:  45000, subject: "commodity" },
-  kit:  { name: "Комплект «Под ключ»", price: 999000, subject: "commodity", needVin: true },
-  inst: { name: "Установка в сервисе", price: 350000, subject: "service" },
+  lic: { name: "Лицензия I-BUS App",                    price: 249000, subject: "service",   needVin: true },
+  dsp: { name: "Лицензия DSP",                          price: 149000, subject: "service",   needVin: true },
+  m1:  { name: "Модуль I-BUS (USB)",                    price: 690000, subject: "commodity" },
+  ad:  { name: "Адаптер для модуля",                    price: 190000, subject: "commodity" },
+  kit: { name: "Комплект: модуль + адаптер + лицензия", price: 999000, subject: "commodity", needVin: true },
 };
 const DELIVERY = { cdek: 35000, post: 29000, pick: 0 };
 const METHODS = new Set(["yoo_money", "sbp", "sberbank", "tinkoff_bank", "bank_card"]);
@@ -376,6 +373,6 @@ const server = http.createServer(async (req, res) => {
 
 if (require.main === module) {
   if (!CFG.shopId || !CFG.secretKey) console.warn("YK_SHOP_ID и YK_SECRET_KEY не заданы: платежи работать не будут.");
-  server.listen(CFG.port, () => console.log(`Бортовик API: http://localhost:${CFG.port}`));
+  server.listen(CFG.port, () => console.log(`I-Bus-Sam API: http://localhost:${CFG.port}`));
 }
 module.exports = { server, db, CFG };

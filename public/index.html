@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Бортовик — магазин</title>
+<title>I-Bus-Sam — магазин I-BUS App</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300;1,700&display=swap" rel="stylesheet">
@@ -165,6 +165,7 @@ section.block.gray{background:var(--soft)}
 .g-item .scr b{display:block;font:11px/1 var(--mono);letter-spacing:1.5px;color:#7fa9ad;margin-bottom:10px}
 .g-item .scr .row{display:flex;justify-content:space-between;font:13px/1.9 var(--mono);color:#fff;border-bottom:1px solid #222a32}
 .g-item .scr .row span:last-child{color:var(--teal)}
+.g-item img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;max-width:none}
 .g-item .ov{position:absolute;inset:0;background:var(--teal);opacity:0;transition:.2s;display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;font-weight:300;text-align:center;padding:20px}
 .g-item:hover .ov,.g-item:focus .ov{opacity:.94}
 .g-item:hover .scr{transform:scale(1.05)}
@@ -284,6 +285,24 @@ th.r{text-align:right}
 .contact b{font-weight:600;color:#333}
 .contact small{display:block;color:var(--muted);font-family:var(--mono);font-size:12px}
 
+
+/* вики */
+.wiki{display:grid;grid-template-columns:260px 1fr;gap:30px;align-items:start}
+@media (max-width:860px){.wiki{grid-template-columns:1fr}}
+.wiki-toc{position:sticky;top:100px;background:#fff;border-radius:5px;padding:14px 0;display:flex;flex-direction:column}
+@media (max-width:860px){.wiki-toc{position:static}}
+.wiki-toc a{padding:8px 20px;color:#777;text-decoration:none;font-size:15px;border-left:2px solid transparent}
+.wiki-toc a:hover{color:#000}
+.wiki-toc a.on{color:#000;border-left-color:var(--orange);background:#fafafa}
+.wiki-body{display:grid;gap:24px}
+.wiki-body article{background:#fff;border-radius:5px;padding:30px 34px}
+@media (max-width:560px){.wiki-body article{padding:22px 18px}}
+.wiki-body h3{font-size:24px;font-weight:300;margin-bottom:14px}
+.wiki-body p{margin:0 0 14px}
+.wiki-body ul,.wiki-body ol{margin:0 0 16px;padding-left:22px}
+.wiki-body li{margin-bottom:6px}
+.wiki-body b{font-weight:600;color:#333}
+
 /* ---------- вопросы и контакты ---------- */
 details{border-bottom:1px solid var(--line);padding:18px 0}
 details summary{cursor:pointer;font-weight:400;font-size:19px;color:#000;list-style:none;display:flex;justify-content:space-between;gap:16px}
@@ -314,22 +333,22 @@ footer.site small{display:block;color:#aaa;font-size:13px}
   <canvas class="lines" id="heroLines" aria-hidden="true"></canvas>
   <div class="wrap">
     <div class="copy">
-      <h1>Бортовой компьютер вашего автомобиля на экране Android-магнитолы</h1>
-      <h2>Приложение, интерфейсный модуль и лицензия. Установка за 20 минут, <a href="#shop">без пайки</a>.</h2>
+      <h1>I-BUS App: бортовой компьютер вашего BMW на Android</h1>
+      <h2>Приложение, модуль I-BUS и лицензии в магазине I-Bus-Sam. Оплата в рублях, доставка по России.</h2>
       <div class="cta">
-        <a class="btn btn-white" href="#shop">Купить</a>
-        <a class="btn btn-line-white" href="#features">Функции</a>
+        <a class="btn btn-white" href="#shop">Купить сейчас</a>
+        <a class="btn btn-line-white" href="https://ibus-app.de/app" rel="noopener">Скачать приложение</a>
       </div>
     </div>
     <div class="phone">
       <div class="dash" aria-label="Пример экрана приложения">
-        <div class="dash-head"><span>БОРТОВИК · ПОЕЗДКА</span><span id="dClock">--:--</span></div>
+        <div class="dash-head"><span>I-BUS APP · ПОЕЗДКА</span><span id="dClock">--:--</span></div>
         <div class="dash-grid">
           <div class="cell"><small>Расход</small><div class="v" id="dFuel">8.4<u>л/100</u></div></div>
           <div class="cell"><small>Запас хода</small><div class="v" id="dRange">412<u>км</u></div></div>
           <div class="cell"><small>Скорость</small><div class="v" id="dSpeed">64<u>км/ч</u></div></div>
           <div class="cell"><small>Снаружи</small><div class="v" id="dTemp">+3<u>°C</u></div></div>
-          <div class="cell wide"><small>Парктроник · задний</small><div class="pdc" id="dPdc"></div></div>
+          <div class="cell wide"><small>PDC · задний</small><div class="pdc" id="dPdc"></div></div>
         </div>
         <div class="dash-foot"><span class="on">БК</span><span>СВЕТ</span><span>PDC</span><span>КОДИРОВАНИЕ</span><span>DSP</span></div>
       </div>
@@ -339,12 +358,13 @@ footer.site small{display:block;color:#aaa;font-size:13px}
 
 <header class="top">
   <div class="wrap">
-    <a class="logo" href="#home">Борт<span>овик</span></a>
+    <a class="logo" href="#home">I-Bus-<span>Sam</span></a>
     <nav class="main" aria-label="Разделы">
       <a href="#home" data-route="home">Главная</a>
       <a href="#shop" data-route="shop">Магазин</a>
       <a href="#wallet" data-route="wallet">Кошелёк</a>
-      <a href="#faq" data-route="faq">Вопросы</a>
+      <a href="#faq" data-route="faq">FAQ</a>
+      <a href="#wiki" data-route="wiki">Вики</a>
       <a href="#contacts" data-route="contacts">Контакты</a>
     </nav>
     <div class="hdr-actions">
@@ -357,61 +377,59 @@ footer.site small{display:block;color:#aaa;font-size:13px}
 <main>
 <!-- ===================== HOME ===================== -->
 <div class="view" id="view-home">
-  <section class="block gray">
+  <section class="block gray" id="app">
     <div class="wrap two-col">
       <div>
-        <h3>Приложение «Бортовик»</h3>
-        <p>Приложение для Android показывает данные бортового компьютера на экране магнитолы и добавляет то, чего нет в штатной системе. Скачать его можно бесплатно, а все функции открывает лицензия.</p>
-        <ul class="checked">
-          <li>бортовой компьютер, свет, парктроник, кодирование</li>
-          <li>сведения об автомобиле и сервисные интервалы</li>
-          <li>управление штатным звуковым процессором (DSP)</li>
-        </ul>
-        <a class="btn btn-ghost" href="#faq">Как установить</a>
+        <h3>Что такое I-BUS App и как ей пользоваться?</h3>
+        <p>I-BUS App — это приложение для Android. Оно выводит бортовой компьютер вашего автомобиля на экран Android-устройства и даёт множество функций комфорта и кодирования.</p>
+        <p>Приложение скачивается бесплатно, а к автомобилю подключается через наш модуль I-BUS. Для работы всех функций нужна лицензия I-BUS App.</p>
+        <p style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn btn-primary" href="https://ibus-app.de/app" rel="noopener">Скачать приложение</a><a class="btn btn-ghost" href="#wiki">Инструкции в вики</a></p>
       </div>
       <div>
-        <h3>Модуль и лицензия</h3>
-        <p>Модуль соединяет шину автомобиля с магнитолой по USB. С адаптером паять ничего не нужно: он встаёт в штатный разъём.</p>
-        <p>Лицензия привязывается к автомобилю по последним 7 знакам VIN и выдаётся в течение 24 часов после оплаты. Для DSP нужна отдельная лицензия.</p>
-        <a class="btn btn-primary" href="#shop">Заказать модуль</a>
+        <h3 id="modul">Как приложение связывается с автомобилем?</h3>
+        <p>Связь идёт через модуль I-BUS с USB-подключением. Модуль припаивается к жгуту проводов автомобиля в трёх точках и подключается к Android-устройству по USB.</p>
+        <p>Если не хотите паять сами, в нашем магазине есть адаптеры для модуля.</p>
+        <p><button class="btn btn-primary" type="button" data-add="m1">Заказать модуль</button></p>
       </div>
     </div>
   </section>
 
-  <section class="block" id="features" style="padding-top:0">
-    <a class="video-btn" href="#faq" title="Как это работает"><i></i><span>Как это работает</span></a>
+  <section class="block" id="lizenz" style="padding-bottom:0">
+    <div class="wrap" style="max-width:860px;text-align:center">
+      <div class="big-title">Лицензия</div>
+      <div class="heading"><h2>Как активировать лицензию приложения?</h2>
+        <p>При покупке лицензии укажите последние 7 знаков VIN вашего автомобиля: их можно найти, например, в СТС или ПТС. Приложение активируется в течение 24 часов после покупки. Для управления DSP нужна отдельная лицензия DSP.</p></div>
+      <p><button class="btn btn-primary" type="button" data-add="lic">Купить лицензию</button></p>
+    </div>
+  </section>
+
+  <section class="block gray" id="features" style="margin-top:6em">
+    <a class="video-btn" href="https://www.youtube.com/watch?v=ZuAeD_VxaT4" rel="noopener" title="Видео о приложении"><i></i><span>Смотреть видео</span></a>
     <div class="wrap">
       <div class="big-title">Функции</div>
-      <div class="heading"><p>Шесть разделов приложения, которые появляются на экране магнитолы.</p></div>
+      <div class="heading"><p>I-BUS App добавляет вашему автомобилю множество новых функций. Здесь перечислены не все.</p></div>
       <div class="services">
-        <div class="service"><div class="icon" style="background:#69c2c8"><svg viewBox="0 0 44 44"><rect x="5" y="9" width="34" height="24" rx="3"/><path d="M12 27l6-8 5 5 8-10"/></svg></div><h3>Бортовой компьютер</h3><p>Расход, средняя скорость, запас хода и время в пути для каждой поездки.</p></div>
-        <div class="service"><div class="icon" style="background:#fed330"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="7"/><path d="M22 5v6M22 33v6M5 22h6M33 22h6M10 10l4 4M30 30l4 4M10 34l4-4M30 14l4-4"/></svg></div><h3>Управление светом</h3><p>Комфортные поворотники, подсветка поворота, задержка фар при выходе.</p></div>
-        <div class="service"><div class="icon" style="background:#58ca7e"><svg viewBox="0 0 44 44"><path d="M8 34h28M12 34V20M20 34V13M28 34V23M36 34V17"/></svg></div><h3>Парктроник</h3><p>Расстояние до препятствий по каждому датчику, крупно и в цвете.</p></div>
-        <div class="service"><div class="icon" style="background:#1784fb"><svg viewBox="0 0 44 44"><path d="M15 14l-8 8 8 8M29 14l8 8-8 8M25 10l-6 24"/></svg></div><h3>Кодирование</h3><p>Включение скрытых функций блоков без ноутбука, с откатом к заводским настройкам.</p></div>
-        <div class="service"><div class="icon" style="background:#fb4f59"><svg viewBox="0 0 44 44"><rect x="9" y="6" width="26" height="32" rx="3"/><path d="M15 14h14M15 20h14M15 26h9"/></svg></div><h3>Информация</h3><p>Сервисные данные, список блоков, язык меню и VIN в одном экране.</p></div>
-        <div class="service"><div class="icon" style="background:#fb6e14"><svg viewBox="0 0 44 44"><path d="M11 34V21M19 34V11M27 34V25M35 34V15"/><circle cx="11" cy="18" r="2.5"/><circle cx="19" cy="8" r="2.5"/><circle cx="27" cy="22" r="2.5"/><circle cx="35" cy="12" r="2.5"/></svg></div><h3>DSP</h3><p>Эквалайзер, тембр и баланс штатного звукового процессора.</p></div>
+        <div class="service"><div class="icon" style="background:#69c2c8"><svg viewBox="0 0 44 44"><rect x="5" y="9" width="34" height="24" rx="3"/><path d="M12 27l6-8 5 5 8-10"/></svg></div><h3>Бортовой компьютер</h3><p>Полностью повторяет штатный бортовой компьютер и добавляет много показателей, которых в нём не было.</p></div>
+        <div class="service"><div class="icon" style="background:#fed330"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="7"/><path d="M22 5v6M22 33v6M5 22h6M33 22h6M10 10l4 4M30 30l4 4M10 34l4-4M30 14l4-4"/></svg></div><h3>Управление светом</h3><p>Не хватало мигания поворотника от касания и света поворота? Приложение даёт это и многое другое.</p></div>
+        <div class="service"><div class="icon" style="background:#1784fb"><svg viewBox="0 0 44 44"><path d="M15 14l-8 8 8 8M29 14l8 8-8 8M25 10l-6 24"/></svg></div><h3>Кодирование</h3><p>Кодируйте сами модуль освещения, PDC и DSP. Набор функций зависит от модели и года выпуска.</p></div>
+        <div class="service"><div class="icon" style="background:#58ca7e"><svg viewBox="0 0 44 44"><path d="M8 34h28M12 34V20M20 34V13M28 34V23M36 34V17"/></svg></div><h3>PDC</h3><p>Точное расстояние до препятствий и наглядная картинка штатного парктроника.</p></div>
+        <div class="service"><div class="icon" style="background:#fb4f59"><svg viewBox="0 0 44 44"><rect x="9" y="6" width="26" height="32" rx="3"/><path d="M15 14h14M15 20h14M15 26h9"/></svg></div><h3>Информация</h3><p>Данные об автомобиле: сервисные сведения, закодированные блоки, язык и VIN.</p></div>
+        <div class="service"><div class="icon" style="background:#fb6e14"><svg viewBox="0 0 44 44"><path d="M11 34V21M19 34V11M27 34V25M35 34V15"/><circle cx="11" cy="18" r="2.5"/><circle cx="19" cy="8" r="2.5"/><circle cx="27" cy="22" r="2.5"/><circle cx="35" cy="12" r="2.5"/></svg></div><h3>DSP</h3><p>Управляйте штатным цифровым звуковым процессором из приложения без потери настроек и качества звука.</p></div>
       </div>
       <p style="text-align:center;margin:40px 0 0"><a class="btn btn-primary" href="#shop">Купить сейчас</a></p>
     </div>
   </section>
 
-  <div class="gallery" id="gallery" aria-label="Экраны приложения">
-    <div class="g-item" tabindex="0"><div class="scr"><b>БОРТОВОЙ КОМПЬЮТЕР</b><div class="row"><span>Расход</span><span>7.9 л</span></div><div class="row"><span>Ср. скорость</span><span>48 км/ч</span></div><div class="row"><span>В пути</span><span>1:12</span></div></div><div class="ov">Бортовой компьютер</div></div>
-    <div class="g-item" tabindex="0"><div class="scr"><b>СВЕТ</b><div class="row"><span>Комф. поворот</span><span>3×</span></div><div class="row"><span>Подсветка</span><span>ВКЛ</span></div><div class="row"><span>Задержка фар</span><span>30 с</span></div></div><div class="ov">Управление светом</div></div>
-    <div class="g-item" tabindex="0"><div class="scr"><b>ИНФОРМАЦИЯ</b><div class="row"><span>Масло через</span><span>6 200 км</span></div><div class="row"><span>ТО через</span><span>140 дн</span></div><div class="row"><span>VIN</span><span>…KZ81457</span></div></div><div class="ov">Сведения об авто</div></div>
-    <div class="g-item" tabindex="0"><div class="scr"><b>DSP · ЭКВАЛАЙЗЕР</b><div class="row"><span>Низкие</span><span>+3</span></div><div class="row"><span>Средние</span><span>0</span></div><div class="row"><span>Высокие</span><span>+2</span></div></div><div class="ov">DSP-эквалайзер</div></div>
+  <div class="gallery" id="gallery" aria-label="Экраны I-BUS App">
+    <div class="g-item" tabindex="0"><div class="scr"><b>БОРТОВОЙ КОМПЬЮТЕР</b><div class="row"><span>Расход</span><span>7.9 л</span></div><div class="row"><span>Ср. скорость</span><span>48 км/ч</span></div><div class="row"><span>В пути</span><span>1:12</span></div></div><img src="images/IBUS_BC.jpg" alt="Бортовой компьютер" loading="lazy" onerror="this.remove()"><div class="ov">Бортовой компьютер</div></div>
+    <div class="g-item" tabindex="0"><div class="scr"><b>МЕНЮ</b><div class="row"><span>Бортовой комп.</span><span>›</span></div><div class="row"><span>Свет</span><span>›</span></div><div class="row"><span>Кодирование</span><span>›</span></div></div><img src="images/IBUS_MENU.png" alt="Меню навигации" loading="lazy" onerror="this.remove()"><div class="ov">Меню навигации</div></div>
+    <div class="g-item" tabindex="0"><div class="scr"><b>PDC</b><div class="row"><span>Задний левый</span><span>64 см</span></div><div class="row"><span>Задний центр</span><span>38 см</span></div><div class="row"><span>Задний правый</span><span>71 см</span></div></div><img src="images/IBUS_PDC.png" alt="PDC" loading="lazy" onerror="this.remove()"><div class="ov">PDC</div></div>
+    <div class="g-item" tabindex="0"><div class="scr"><b>КОДИРОВАНИЕ</b><div class="row"><span>Комф. поворот</span><span>3×</span></div><div class="row"><span>Свет поворота</span><span>ВКЛ</span></div><div class="row"><span>Ангельские глазки</span><span>ВКЛ</span></div></div><img src="images/IBUS_Codierung.png" alt="Кодирование" loading="lazy" onerror="this.remove()"><div class="ov">Кодирование</div></div>
+    <div class="g-item" tabindex="0"><div class="scr"><b>ИНФОРМАЦИЯ</b><div class="row"><span>Масло через</span><span>6 200 км</span></div><div class="row"><span>Язык</span><span>Русский</span></div><div class="row"><span>VIN</span><span>…KZ81457</span></div></div><img src="images/IBUS_Informationen.jpg" alt="Информация об автомобиле" loading="lazy" onerror="this.remove()"><div class="ov">Информация об автомобиле</div></div>
+    <div class="g-item" tabindex="0"><div class="scr"><b>СВЕТ</b><div class="row"><span>Поворотник</span><span>касание</span></div><div class="row"><span>Подсветка</span><span>ВКЛ</span></div><div class="row"><span>Задержка фар</span><span>30 с</span></div></div><img src="images/IBUS_Lichtsteuerung.jpg" alt="Управление светом" loading="lazy" onerror="this.remove()"><div class="ov">Управление светом</div></div>
+    <div class="g-item" tabindex="0"><div class="scr"><b>DSP · ЭКВАЛАЙЗЕР</b><div class="row"><span>Низкие</span><span>+3</span></div><div class="row"><span>Средние</span><span>0</span></div><div class="row"><span>Высокие</span><span>+2</span></div></div><img src="images/IBUS_DSP_Equalizer.jpg" alt="DSP: эквалайзер" loading="lazy" onerror="this.remove()"><div class="ov">DSP: эквалайзер</div></div>
+    <div class="g-item" tabindex="0"><div class="scr"><b>DSP · ТЕМБР</b><div class="row"><span>Бас</span><span>+2</span></div><div class="row"><span>Тембр</span><span>+1</span></div><div class="row"><span>Баланс</span><span>Ц</span></div></div><img src="images/IBUS_DSP_Tone.jpg" alt="DSP: тембр" loading="lazy" onerror="this.remove()"><div class="ov">DSP: тембр</div></div>
   </div>
-
-  <section class="block gray" style="clear:both">
-    <div class="wrap">
-      <div class="heading"><h2>Как начать</h2><p>Три шага до первого запуска</p></div>
-      <div class="steps">
-        <div class="step"><div class="n">1</div><h3>Установите приложение</h3><p>Бесплатно, для Android 8 и новее. Без лицензии работает в режиме просмотра.</p><a class="btn btn-ghost btn-sm" href="#faq">Требования</a></div>
-        <div class="step"><div class="n">2</div><h3>Подключите модуль</h3><p>Модуль соединяет шину автомобиля с магнитолой по USB. С адаптером без пайки.</p><button class="btn btn-ghost btn-sm" type="button" data-add="m1">Модуль · 6 900 ₽</button></div>
-        <div class="step"><div class="n">3</div><h3>Активируйте лицензию</h3><p>Укажите 7 последних знаков VIN при заказе. Ключ придёт в течение 24 часов.</p><button class="btn btn-ghost btn-sm" type="button" data-add="lic">Лицензия · 2 490 ₽</button></div>
-      </div>
-    </div>
-  </section>
 
   <div class="cta-band">
     <div class="wrap">
@@ -479,12 +497,170 @@ footer.site small{display:block;color:#aaa;font-size:13px}
     <div class="wrap" style="max-width:860px">
       <div class="big-title">Вопросы</div>
       <div class="heading"><p>Ответы на частые вопросы</p></div>
-      <details open><summary>Какие магнитолы подходят?</summary><p>Любые Android-магнитолы с Android 8 и новее и свободным USB-портом. Приложение работает и на обычном смартфоне.</p></details>
-      <details><summary>Как активируется лицензия?</summary><p>При оформлении заказа укажите последние 7 знаков VIN. Ключ появится во вкладке «Лицензии» в кошельке и придёт на почту в течение 24 часов. Лицензия привязана к автомобилю, а не к телефону.</p></details>
+      <details open><summary>Что умеет I-BUS App?</summary><p>Полностью повторяет бортовой компьютер, управляет автономным отопителем, показывает расстояния PDC, включает подсветку Coming / Leaving home, управляет DSP и CD-чейнджером, даёт функции кодирования и комфорта. Полный список в <a href="#wiki">вики</a>.</p></details>
+      <details><summary>Где найти VIN?</summary><p>VIN указан в СТС и ПТС автомобиля. Для лицензии нужны последние 7 знаков.</p></details>
+      <details><summary>Какие устройства подходят?</summary><p>Android-магнитолы, планшеты и телефоны с Android 8 и новее и полноценным USB-портом. Подробные требования и список поддерживаемых автомобилей есть в нашей <a href="#wiki">вики</a>.</p></details>
+      <details><summary>Как активируется лицензия?</summary><p>При оформлении заказа укажите последние 7 знаков VIN. Ключ появится во вкладке «Лицензии» в кошельке и придёт на почту в течение 24 часов. Для управления DSP нужна отдельная лицензия DSP.</p></details>
       <details><summary>Какие способы оплаты доступны?</summary><p>ЮMoney, СБП, SberPay, T-Pay и карты «Мир». Можно оплатить заказ целиком с баланса кошелька или частично: остаток доплачивается выбранным способом.</p></details>
       <details><summary>Как работает возврат?</summary><p>Отменить заказ можно до отправки. Деньги возвращаются на баланс кошелька сразу, а вывести их можно на кошелёк ЮMoney или по СБП на карту.</p></details>
       <details><summary>Можно ли рассчитываться с установщиком через кошелёк?</summary><p>Да. У каждого покупателя и партнёра есть номер кошелька. Переводы между кошельками магазина проходят мгновенно и без комиссии.</p></details>
-      <details><summary>Нужно ли паять?</summary><p>С адаптером «без пайки» нет: он встаёт между штатным разъёмом и жгутом. Без адаптера модуль подключается к трём проводам.</p></details>
+      <details><summary>Нужно ли паять?</summary><p>Модуль I-BUS припаивается к жгуту проводов в трёх точках. Если паять не хотите, возьмите адаптер для модуля из нашего магазина.</p></details>
+    </div>
+  </section>
+</div>
+
+<!-- ===================== WIKI ===================== -->
+<div class="view" id="view-wiki">
+  <section class="block gray">
+    <div class="wrap">
+      <div class="big-title">Вики</div>
+      <div class="heading"><p>Всё об I-BUS App и модуле Resler: требования, установка, функции, настройки и решение проблем</p></div>
+      <div class="wiki">
+        <nav class="wiki-toc" aria-label="Разделы вики">
+          <a href="#wiki" data-wiki="w-what">Что такое I-BUS App</a>
+          <a href="#wiki" data-wiki="w-need">Что нужно для работы</a>
+          <a href="#wiki" data-wiki="w-module">Модуль Resler</a>
+          <a href="#wiki" data-wiki="w-install">Установка модуля</a>
+          <a href="#wiki" data-wiki="w-func">Функции</a>
+          <a href="#wiki" data-wiki="w-settings">Настройки и активация</a>
+          <a href="#wiki" data-wiki="w-dsp">DSP</a>
+          <a href="#wiki" data-wiki="w-trouble">Решение проблем</a>
+          <a href="#wiki" data-wiki="w-upgrade">Переход на модуль Resler</a>
+        </nav>
+        <div class="wiki-body">
+          <article id="w-what">
+            <h3>Что такое I-BUS App</h3>
+            <p>I-BUS App — приложение для Android. Оно показывает бортовой компьютер на экране Android-устройства и добавляет автомобилю функции комфорта и кодирования.</p>
+            <p>Приложение скачивается бесплатно и подключается к модулю. Чтобы пользоваться всеми функциями, нужна лицензия I-BUS App.</p>
+            <p><b>Подходящие автомобили:</b> BMW E38, E39, E46, E53, E83 и E85. Набор функций зависит от модели и года выпуска: подробности в разделе «Функции».</p>
+          </article>
+
+          <article id="w-need">
+            <h3>Что нужно для работы</h3>
+            <ol>
+              <li><b>Android-устройство</b> (магнитола, планшет или телефон) с Android 8 и новее и полноценным USB-портом. Проверка простая: порт должен видеть обычную флешку.</li>
+              <li><b>Модуль Resler</b>, правильно подключённый к автомобилю.</li>
+              <li><b>Приложение I-BUS App</b> последней версии.</li>
+              <li><b>Лицензия I-BUS App</b>, для DSP дополнительно лицензия DSP.</li>
+              <li><b>Интернет</b> на Android-устройстве, хотя бы один раз для активации.</li>
+            </ol>
+            <p><b>Рекомендуем</b> проверенные Android-магнитолы на процессорах PX5, PX6 (MTC) или Qualcomm. На магнитолах с процессорами PX3, PX30, PX40, MTK, Allwinner, AutoChip приложение может работать плохо или не работать совсем.</p>
+            <p class="note">CAN-bus интерфейс магнитолы не заменяет модуль Resler: модуль нужен в любом случае.</p>
+            <p>Если устройство не из списка рекомендованных, мы не можем гарантировать, что оно распознает модуль, даст приложению нужные права и что приложение активируется.</p>
+          </article>
+
+          <article id="w-module">
+            <h3>Модуль Resler</h3>
+            <p>Модуль Resler даёт приложению доступ к шине I-BUS автомобиля: через него приложение читает данные и управляет функциями. Бывает два варианта: <b>оранжевый модуль Resler</b> (новый) и <b>чёрный интерфейс Resler</b> (предыдущий).</p>
+            <p><b>С Android-магнитолой</b> модуль работает как связь с шиной I-BUS и добавляет функции света и зеркал.</p>
+            <p><b>Без Android-магнитолы</b> модуль можно использовать отдельно: со штатным радио или навигацией либо с любой другой магнитолой. Для этого достаточно подключить 4-контактный разъём к шине, проще всего через адаптер plug'n'play.</p>
+            <p>Настройки модуля меняются в приложении I-BUS App или на компьютере в программе-конфигураторе Resler.</p>
+          </article>
+
+          <article id="w-install">
+            <h3>Установка модуля</h3>
+            <p>Модулю нужны три подключения:</p>
+            <ul>
+              <li><b>I-BUS</b> — линия данных шины;</li>
+              <li><b>масса</b>;</li>
+              <li><b>+12 В</b>.</li>
+            </ul>
+            <p><b>Разъём Quadlock (плоские контакты), новое поколение, блок A:</b> контакт 9 — I-BUS, контакт 12 — масса, контакт 15 — +12 В.</p>
+            <p><b>Варианты подключения:</b></p>
+            <ul>
+              <li><b>Адаптер без пайки</b> для круглых контактов или для плоских контактов (Quadlock), в том числе для адаптеров магнитол Xtrons. Самый простой вариант.</li>
+              <li>Пайка к проводам жгута в трёх точках.</li>
+              <li>Подключение к проводам отрезанного разъёма через клеммы Wago или похожие.</li>
+              <li>Отдельный адаптер подключения через разъём CD-чейнджера, для работы без Android-магнитолы.</li>
+            </ul>
+            <p>USB модуля лучше подключать к <b>зелёному USB-порту</b> магнитолы (порт 1). Если используете датчики давления в шинах (TPMS), подключайте их к жёлтому порту (порт 3).</p>
+            <p><button class="btn btn-primary btn-sm" type="button" data-add="ad">Адаптер без пайки в корзину</button></p>
+          </article>
+
+          <article id="w-func">
+            <h3>Функции</h3>
+            <p><b>Основные:</b></p>
+            <ul>
+              <li>показ и сброс данных бортового компьютера;</li>
+              <li>установка времени в приборной панели (IKE);</li>
+              <li>визуализация PDC (парктроника);</li>
+              <li>функции и управление светом;</li>
+              <li>функции комфорта;</li>
+              <li>кодирование;</li>
+              <li>управление автономным отопителем (с High BC);</li>
+              <li>управление DSP (по отдельной лицензии).</li>
+            </ul>
+            <p><b>Подробно:</b></p>
+            <ul>
+              <li>мигание поворотника от касания, от 2 до 7 раз;</li>
+              <li>свет поворота противотуманными фарами (включается по сигналу поворотника, а не по углу руля);</li>
+              <li>дневные ходовые огни через противотуманные фары, габариты или подсветку салона, с первого или второго положения зажигания;</li>
+              <li>автоматическое запирание дверей после заданной скорости и автоматическое отпирание;</li>
+              <li>складывание и раскладывание зеркал, опускание зеркала при включении задней передачи;</li>
+              <li>таймеры 1 и 2 для отопителя;</li>
+              <li>подсветка при подходе и уходе от автомобиля (Coming / Leaving home), если магнитола подключена к линии отключения потребителей;</li>
+              <li>переключение между экранами Low BC и High BC;</li>
+              <li>управление CD-чейнджером;</li>
+              <li>кодирование модуля освещения (LCM), PDC и DSP;</li>
+              <li>несколько вариантов экрана для разных разрешений, сохранение настроек;</li>
+              <li>автозапуск при включении магнитолы и автоподключение к модулю;</li>
+              <li>русский язык интерфейса (и ещё полтора десятка языков).</li>
+            </ul>
+            <p class="note">На автомобилях с модулем LCM 2 (выпуск до 07.1998) кодирование ограничено, температура масла и напряжение могут не отображаться. На E46, E83 и E85 набор функций меньше: например, на E46 не показывается температура масла.</p>
+          </article>
+
+          <article id="w-settings">
+            <h3>Настройки и активация</h3>
+            <p><b>Главный экран.</b> Слева меню: бортовой компьютер, спортивный режим, кодирование, сведения об автомобиле, управление светом, DSP, обновления приложения и прошивки, настройки, режим эксперта, активация, «О приложении». Вверху страницы приложения: бортовой компьютер, PDC и OBD.</p>
+            <p><b>Доступ к модулю по USB.</b> Когда приложение впервые видит модуль, Android спрашивает разрешение на USB. Поставьте галочку «использовать по умолчанию», чтобы разрешение выдавалось автоматически. Если окно пропустили, переподключите модуль или полностью перезапустите приложение.</p>
+            <p><b>Активация лицензии.</b> Лицензия привязана к VIN: при активации приложение онлайн проверяет VIN автомобиля, а при работе с модулем Resler ещё и его серийный номер. Проверка нужна один раз, после покупки активация возможна в течение 24 часов.</p>
+            <p><b>Сообщения при активации:</b></p>
+            <ul>
+              <li>«Нет доступа к интерфейсу» — проверьте, что в общих настройках приложения включено USB-подключение.</li>
+              <li>«Не удалось прочитать VIN» — проверьте подключение контактов модуля (см. «Установка модуля»).</li>
+            </ul>
+          </article>
+
+          <article id="w-dsp">
+            <h3>DSP</h3>
+            <p>Штатный звуковой процессор (DSP) продолжает работать, проводку DSP менять не нужно. Нужно только подключить модуль Resler к магнитоле (USB и адаптер), например через адаптер plug'n'play.</p>
+            <p>Что нужно: рекомендованная Android-магнитола, модуль Resler, приложение I-BUS App и лицензии I-BUS App + DSP.</p>
+            <p><b>Настройка магнитолы.</b> Рекомендуем режим «фиксированная громкость радио»: громкость магнитолы остаётся постоянной, а регулируется она через DSP кнопками на руле или в приложении.</p>
+            <p><button class="btn btn-primary btn-sm" type="button" data-add="dsp">Лицензия DSP в корзину</button></p>
+          </article>
+
+          <article id="w-trouble">
+            <h3>Решение проблем</h3>
+            <p>Приложение при активации проверяет всё по порядку. В этом же порядке ищите ошибку:</p>
+            <ol>
+              <li>связь с модулем Resler по USB;</li>
+              <li>связь с шиной I-BUS;</li>
+              <li>интернет;</li>
+              <li>VIN автомобиля.</li>
+            </ol>
+            <p><b>Сначала проверьте основное:</b> модуль оригинальный (оранжевый модуль или чёрный интерфейс Resler), подключён к адаптеру магнитолы и к USB, лицензия куплена, приложение установлено и обновлено.</p>
+            <p><b>Приложение не видит модуль.</b> Проблема в USB. В общих настройках приложения, в пункте «USB-интерфейс», выберите:</p>
+            <ul>
+              <li>для чёрного интерфейса — «R.Resler IBUS Interface V6b Port: 1»;</li>
+              <li>для оранжевого модуля — «Resler Modul Port: 1» или «USB Serial 2.0 Port: 1».</li>
+            </ul>
+            <p>Если подключены датчики давления в шинах (TPMS), отключите их, закройте и снова откройте «USB-интерфейс». Модуль подключайте к зелёному USB (порт 1), TPMS — к жёлтому (порт 3).</p>
+            <p><b>Нет связи с сервером.</b> Обновите приложение до последней версии, при необходимости скачайте и установите его вручную. Проверьте время в Android: вручную задайте только часовой пояс, а само время должно ставиться автоматически.</p>
+            <p><b>Журнал для поддержки.</b> Модуль можно подключить по USB к компьютеру с Windows и записать журнал работы. Это полезно, если модуль работает без приложения или не срабатывает подсветка Coming / Leaving home. Напишите нам, и мы подскажем, как это сделать.</p>
+          </article>
+
+          <article id="w-upgrade">
+            <h3>Переход с интерфейса на модуль Resler</h3>
+            <ol>
+              <li>Обновите I-BUS App до последней версии. В общих настройках, в пункте «USB-интерфейс», выберите «USB Serial» и <b>обязательно перезапустите приложение</b>.</li>
+              <li>Отключите чёрный интерфейс Resler от USB и от 4-контактного разъёма.</li>
+              <li>Подключите оранжевый модуль Resler: сначала 4-контактный разъём, затем USB.</li>
+              <li>Включите зажигание, дождитесь загрузки магнитолы и откройте приложение. В пункте «USB-интерфейс» выберите «Resler Modul» и активируйте лицензию заново.</li>
+              <li>Проверьте и установите обновления прошивки модуля в меню приложения.</li>
+            </ol>
+          </article>
+        </div>
+      </div>
     </div>
   </section>
 </div>
@@ -494,10 +670,10 @@ footer.site small{display:block;color:#aaa;font-size:13px}
   <section class="block gray">
     <div class="wrap">
       <div class="big-title">Контакты</div>
-      <div class="heading"><p>Ответим на вопросы по установке, оплате и лицензиям</p></div>
+      <div class="heading"><p>Ответим на вопросы по установке модуля, оплате и лицензиям I-BUS App</p></div>
       <div class="contact-grid">
-        <div class="panel-card"><h3>Поддержка</h3><p>Ежедневно с 9:00 до 21:00 по Москве</p><p class="num" style="color:#000">support@bortovik.example</p></div>
-        <div class="panel-card"><h3>Telegram</h3><p>Ответим быстрее, чем на почту</p><p class="num" style="color:#000">@bortovik_support</p></div>
+        <div class="panel-card"><h3>Поддержка</h3><p>Ежедневно с 9:00 до 21:00 по Москве</p><p class="num" style="color:#000">info@bmw-ibus.ru</p></div>
+        <div class="panel-card"><h3>Telegram</h3><p>Ответим быстрее, чем на почту</p><p class="num" style="color:#000">@ibus_sam</p></div>
         <div class="panel-card"><h3>Реквизиты</h3><p>ИП / ООО, ИНН, ОГРН: укажите свои данные перед запуском</p></div>
       </div>
       <form class="panel-card" id="contactForm" style="margin:30px auto 0;max-width:640px">
@@ -513,8 +689,8 @@ footer.site small{display:block;color:#aaa;font-size:13px}
 
 <footer class="site">
   <div class="wrap">
-    <div>© 2026 Бортовик. Все права защищены.<small>Дизайн по мотивам шаблона Icon от FreeHTML5.co (CC BY 3.0)</small></div>
-    <nav><a href="#shop">Магазин</a><a href="#wallet">Кошелёк</a><a href="#faq">Вопросы</a><a href="#contacts">Контакты</a><span>Политика конфиденциальности</span><span>Оферта</span></nav>
+    <div>© 2026 I-Bus-Sam. Партнёр I-BUS App в России.<small>I-BUS App — продукт ibus-app.de. Дизайн по мотивам шаблона Icon от FreeHTML5.co (CC BY 3.0)</small></div>
+    <nav><a href="#shop">Магазин</a><a href="#faq">FAQ</a><a href="#wiki">Вики</a><a href="https://www.youtube.com/channel/UCOWcoADEldNRix52krk4XWg" rel="noopener">YouTube</a><a href="#contacts">Контакты</a><a href="https://ibus-app.de/app" rel="noopener">Скачать приложение</a></nav>
   </div>
 </footer>
 
@@ -539,22 +715,17 @@ footer.site small{display:block;color:#aaa;font-size:13px}
 const CATEGORIES = [
   {id:"all", name:"Все"},
   {id:"lic", name:"Лицензии"},
-  {id:"mod", name:"Модули"},
-  {id:"acc", name:"Адаптеры и кабели"},
-  {id:"kit", name:"Комплекты"},
-  {id:"srv", name:"Услуги"}
+  {id:"mod", name:"Модули и адаптеры"},
+  {id:"kit", name:"Комплекты"}
 ];
 const PRODUCTS = [
-  {id:"lic",  cat:"lic", name:"Лицензия «Бортовик»", price:2490, desc:"Полный доступ к функциям приложения. Привязка к автомобилю по VIN.", digital:true, needVin:true, icon:"key"},
-  {id:"dsp",  cat:"lic", name:"Лицензия DSP", price:1490, desc:"Эквалайзер и настройка штатного звукового процессора.", digital:true, needVin:true, icon:"eq"},
-  {id:"m1",   cat:"mod", name:"Модуль М1 (USB)", price:6900, desc:"Интерфейс между шиной автомобиля и магнитолой. Гарантия 2 года.", icon:"chip", tag:"Хит"},
-  {id:"ad",   cat:"acc", name:"Адаптер «без пайки»", price:1900, desc:"Встаёт между штатным разъёмом и жгутом. Снимается без следов.", icon:"plug"},
-  {id:"usb",  cat:"acc", name:"Кабель USB-C, 1,5 м", price:590, desc:"Экранированный, для прокладки за панелью.", icon:"cable"},
-  {id:"case", cat:"acc", name:"Держатель модуля", price:450, desc:"Крепление на стяжку, гасит вибрацию.", icon:"box"},
-  {id:"kit",  cat:"kit", name:"Комплект «Под ключ»", price:9990, old:11880, desc:"Модуль М1, адаптер, кабель и лицензия. Выгода 1 890 ₽.", needVin:true, icon:"kit", tag:"Выгода"},
-  {id:"inst", cat:"srv", name:"Установка в сервисе", price:3500, desc:"Москва и Санкт-Петербург. Мастер свяжется для записи.", digital:true, icon:"wrench"}
+  {id:"lic", cat:"lic", name:"Лицензия I-BUS App", price:2490, desc:"Все функции приложения. Привязка к автомобилю по 7 последним знакам VIN, активация в течение 24 часов.", digital:true, needVin:true, icon:"key", tag:"Хит"},
+  {id:"dsp", cat:"lic", name:"Лицензия DSP", price:1490, desc:"Управление штатным звуковым процессором (DSP) из приложения. Нужна вместе с лицензией I-BUS App.", digital:true, needVin:true, icon:"eq"},
+  {id:"m1",  cat:"mod", name:"Модуль I-BUS (USB)", price:6900, desc:"Соединяет шину I-BUS автомобиля с Android-устройством по USB. Припаивается к жгуту в трёх точках.", icon:"chip"},
+  {id:"ad",  cat:"mod", name:"Адаптер для модуля", price:1900, desc:"Подключение модуля I-BUS без пайки.", icon:"plug"},
+  {id:"kit", cat:"kit", name:"Комплект: модуль + адаптер + лицензия", price:9990, old:11290, desc:"Всё для запуска I-BUS App без пайки. Выгода 1 300 ₽.", needVin:true, icon:"kit", tag:"Выгода"}
 ];
-const CAT_COLORS = {lic:"#69c2c8", mod:"#1784fb", acc:"#58ca7e", kit:"#fb6e14", srv:"#fb4f59"};
+const CAT_COLORS = {lic:"#69c2c8", mod:"#1784fb", kit:"#fb6e14"};
 const DELIVERY = [
   {id:"cdek", name:"СДЭК до пункта выдачи", price:350},
   {id:"post", name:"Почта России", price:290},
@@ -585,7 +756,7 @@ const ICONS = {
 };
 
 /* ======================= СОСТОЯНИЕ ======================= */
-const KEY = "bortovik-demo-v1";
+const KEY = "ibus-sam-demo-v1";
 const fresh = () => ({
   wallet: "4100-" + String(Math.floor(1000 + Math.random()*8999)) + "-" + String(Math.floor(1000 + Math.random()*8999)),
   ledger: [
@@ -596,7 +767,7 @@ const fresh = () => ({
   orders: [
     {id:"1042", ts:Date.now()-86400e3*3, items:[{id:"lic",qty:1,price:2490}], delivery:"pick", deliveryPrice:0, total:2490, paidWallet:2490, paidExt:0, status:"done", vin:"KZ81457"}
   ],
-  keys: [{order:"1042", product:"Лицензия «Бортовик»", vin:"KZ81457", key:"BRT-7Q4M-K2XP-91HD", status:"active"}],
+  keys: [{order:"1042", product:"Лицензия I-BUS App", vin:"KZ81457", key:"IBS-7Q4M-K2XP-91HD", status:"active"}],
   cart: {}
 });
 let S;
@@ -618,7 +789,7 @@ const methodName = id => id==="wallet" ? "Баланс" : (METHODS.find(m=>m.id=
 function toast(msg){ const t=$("#toast"); t.textContent=msg; t.classList.add("on"); clearTimeout(toast._t); toast._t=setTimeout(()=>t.classList.remove("on"),2600); }
 
 /* ======================= РОУТИНГ ======================= */
-const ROUTES = ["home","shop","wallet","faq","contacts"];
+const ROUTES = ["home","shop","wallet","faq","wiki","contacts"];
 function route(){
   const r = ROUTES.includes(location.hash.slice(1)) ? location.hash.slice(1) : "home";
   document.querySelectorAll(".view").forEach(v=>v.classList.toggle("on", v.id==="view-"+r));
@@ -745,12 +916,12 @@ function finalizeOrder(order, method){
   S.orders.unshift(order);
   order.items.forEach(it=>{
     const p = prod(it.id);
-    if(p.needVin) for(let i=0;i<it.qty;i++) S.keys.unshift({order:order.id, product: p.id==="kit"?"Лицензия «Бортовик» (из комплекта)":p.name, vin:order.vin, key:null, status:"wait"});
+    if(p.needVin) for(let i=0;i<it.qty;i++) S.keys.unshift({order:order.id, product: p.id==="kit"?"Лицензия I-BUS App (из комплекта)":p.name, vin:order.vin, key:null, status:"wait"});
   });
   S.cart = {}; save(); renderAll();
   openModal("Заказ оплачен", `<div class="gw"><div class="ok-mark">✓</div><p>Заказ <b>№ ${order.id}</b> на <b class="num">${rub(order.total)}</b> оплачен.${order.vin?`<br>Ключ лицензии для VIN <b class="num">…${esc(order.vin)}</b> появится во вкладке «Лицензии».`:""}</p><a class="btn btn-primary" href="#wallet" data-close>Открыть кошелёк</a></div>`);
   // имитация выдачи ключа
-  setTimeout(()=>{ let changed=false; S.keys.forEach(k=>{ if(k.status==="wait"){ k.status="active"; k.key="BRT-"+[0,0,0].map(()=>uid().slice(0,4).toUpperCase()).join("-"); changed=true; }}); if(changed){ save(); renderAll(); toast("Ключ лицензии выдан"); } }, 6000);
+  setTimeout(()=>{ let changed=false; S.keys.forEach(k=>{ if(k.status==="wait"){ k.status="active"; k.key="IBS-"+[0,0,0].map(()=>uid().slice(0,4).toUpperCase()).join("-"); changed=true; }}); if(changed){ save(); renderAll(); toast("Лицензия активирована"); } }, 6000);
 }
 
 /* ======================= ИМИТАЦИЯ ПЛАТЁЖНОЙ СТРАНИЦЫ ======================= */
@@ -917,6 +1088,11 @@ function markMethods(){ document.querySelectorAll(".method").forEach(l=>{ const 
 document.addEventListener("change", e=>{ if(e.target.closest(".method")) markMethods(); });
 new MutationObserver(markMethods).observe(document.getElementById("modalBody"), {childList:true});
 document.addEventListener("keydown", e=>{ if(e.key==="Escape") closeAll(); });
+document.querySelectorAll("[data-wiki]").forEach(a=>a.addEventListener("click", e=>{
+  e.preventDefault();
+  document.querySelectorAll("[data-wiki]").forEach(x=>x.classList.toggle("on", x===a));
+  const t=document.getElementById(a.dataset.wiki); if(t) window.scrollTo({top: t.getBoundingClientRect().top + window.scrollY - 100, behavior:"smooth"});
+}));
 $("#contactForm").addEventListener("submit", e=>{ e.preventDefault(); e.target.reset(); toast("В демо сообщение не отправляется. Подключите форму к своему серверу."); });
 
 /* ======================= ДИСПЛЕЙ В ШАПКЕ ======================= */
