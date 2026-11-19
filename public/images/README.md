@@ -1,8 +1,17 @@
-# Скриншоты I-BUS App для галереи
+# Картинки сайта
 
-Положите сюда файлы с такими именами, и они появятся в галерее на главной странице:
+Положите сюда файлы с такими именами, и они сразу появятся на сайте.
+Пока файла нет, на его месте показывается схематичный экран или градиент.
 
-IBUS_BC.jpg, IBUS_MENU.png, IBUS_PDC.png, IBUS_Codierung.png,
-IBUS_Informationen.jpg, IBUS_Lichtsteuerung.jpg, IBUS_DSP_Equalizer.jpg, IBUS_DSP_Tone.jpg
-
-Пока файла нет, на его месте показывается схематичный экран.
+| Файл | Где на сайте |
+|---|---|
+| `hero.jpg` | фон первого экрана (на ibus-app.de это `ibus.jpg`) |
+| `about-1.jpg` … `about-4.jpg` | сетка 2×2 рядом с вкладками «I-BUS App / Модуль / Лицензия» |
+| `IBUS_BC.jpg` | галерея: бортовой компьютер |
+| `IBUS_MENU.png` | галерея: меню |
+| `IBUS_PDC.png` | галерея: PDC |
+| `IBUS_Codierung.png` | галерея: кодирование |
+| `IBUS_Informationen.jpg` | галерея: информация об автомобиле |
+| `IBUS_Lichtsteuerung.jpg` | галерея: управление светом |
+| `IBUS_DSP_Equalizer.jpg` | галерея: DSP, эквалайзер |
+| `IBUS_DSP_Tone.jpg` | галерея: DSP, тембр |
