@@ -1,0 +1,37 @@
+# Выкладка сайта на хостинг (Hostland) по FTP при каждом изменении в ветке main.
+# Пока секреты FTP_SERVER, FTP_USERNAME, FTP_PASSWORD не заданы, шаг выкладки пропускается.
+name: Выкладка на хостинг
+
+on:
+  push:
+    branches: [main]
+    paths: ["public/**", ".github/workflows/deploy.yml"]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      FTP_SERVER: ${{ secrets.FTP_SERVER }}
+    steps:
+      - name: Получить код
+        uses: actions/checkout@v4
+
+      - name: Секреты не заданы
+        if: env.FTP_SERVER == ''
+        run: echo "Добавьте секреты FTP_SERVER, FTP_USERNAME, FTP_PASSWORD и FTP_DIR в Settings → Secrets and variables → Actions."
+
+      - name: Загрузить public/ на хостинг
+        if: env.FTP_SERVER != ''
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ${{ secrets.FTP_PROTOCOL || 'ftp' }}
+          local-dir: ./public/
+          server-dir: ${{ secrets.FTP_DIR || './' }}
