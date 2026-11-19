@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Настройки Claude</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="options-body">
+  <div class="options">
+    <h1><img src="icons/icon48.png" alt="">Настройки Claude</h1>
+
+    <div class="card">
+      <div class="field">
+        <label for="apiKey">API-ключ Anthropic</label>
+        <div class="row">
+          <input type="password" id="apiKey" placeholder="sk-ant-..." autocomplete="off" spellcheck="false">
+          <button class="btn" id="toggleKey" type="button">Показать</button>
+          <button class="btn" id="testKey" type="button">Проверить</button>
+        </div>
+        <div class="help">
+          Ключ хранится только в этом браузере и отправляется только на api.anthropic.com.
+        </div>
+        <div class="status" id="keyStatus"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="field">
+        <label for="model">Модель</label>
+        <select id="model"></select>
+        <div class="help">Opus 5.5 — самая умная по умолчанию; Sonnet 5.5 — быстрее и дешевле; Haiku 5.5 — самая быстрая и дешёвая.</div>
+      </div>
+      <div class="field">
+        <label for="effort">Глубина размышлений</label>
+        <select id="effort"></select>
+        <div class="help">Чем выше, тем лучше ответы на сложные вопросы, но дольше и дороже.</div>
+      </div>
+      <div class="field">
+        <label for="system">Системная инструкция</label>
+        <textarea id="system"></textarea>
+        <div class="help">Общие указания для Claude во всех чатах (тон, язык, роль).</div>
+      </div>
+      <div class="field">
+        <label class="check"><input type="checkbox" id="showThinking"> Показывать ход размышлений</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <button class="btn btn-primary" id="save" type="button">Сохранить</button>
+      <span class="status" id="saveStatus"></span>
+    </div>
+
+    <div class="card" style="margin-top:20px">
+      <div class="field">
+        <label>Как получить ключ</label>
+        <ol>
+          <li>Зайдите на <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">console.anthropic.com</a> и войдите в аккаунт.</li>
+          <li>Пополните баланс в разделе Billing (оплата идёт за фактическое использование).</li>
+          <li>Создайте ключ в разделе API Keys и вставьте его сюда.</li>
+        </ol>
+      </div>
+      <div class="field">
+        <label>Данные</label>
+        <div class="row">
+          <button class="btn" id="exportChats" type="button">Экспорт чатов (JSON)</button>
+          <button class="btn" id="clearChats" type="button">Удалить все чаты</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="vendor/claude-api.js"></script>
+  <script src="common.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Claude</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="chat-body">
+  <div class="app">
+    <aside class="sidebar" id="sidebar">
+      <button class="btn btn-primary full" id="newChat">+ Новый чат</button>
+      <div class="chat-list" id="chatList"></div>
+      <div class="sidebar-foot">
+        <button class="btn btn-ghost full" id="openOptions">⚙ Настройки</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button class="icon-btn" id="toggleSidebar" title="Список чатов">☰</button>
+        <div class="title" id="chatTitle">Claude</div>
+        <select id="modelSelect" class="model-select" title="Модель"></select>
+        <button class="icon-btn" id="pageBtn" title="Взять текст текущей страницы">📄</button>
+        <button class="icon-btn" id="openTab" title="Открыть во вкладке">⤢</button>
+      </header>
+
+      <section class="messages" id="messages">
+        <div class="empty" id="empty">
+          <div class="logo">✳</div>
+          <h1>Чем помочь?</h1>
+          <p>Задайте вопрос, прикрепите картинку или нажмите 📄, чтобы обсудить открытую страницу.</p>
+          <p class="hint">Также: выделите текст на любой странице → правый клик → «Спросить Claude».</p>
+        </div>
+      </section>
+
+      <div class="notice" id="notice" hidden></div>
+
+      <footer class="composer">
+        <div class="attachments" id="attachments"></div>
+        <div class="composer-row">
+          <label class="icon-btn" title="Прикрепить изображение">
+            📎<input type="file" id="fileInput" accept="image/png,image/jpeg,image/gif,image/webp" multiple hidden>
+          </label>
+          <textarea id="input" rows="1" placeholder="Сообщение для Claude…" title="Enter — отправить, Shift+Enter — новая строка"></textarea>
+          <button class="btn btn-primary" id="sendBtn">Отправить</button>
+          <button class="btn btn-stop" id="stopBtn" hidden>Стоп</button>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <script src="vendor/claude-api.js"></script>
+  <script src="common.js"></script>
+  <script src="markdown.js"></script>
+  <script src="chat.js"></script>
+</body>
+</html>
